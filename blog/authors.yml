@@ -1,20 +1,20 @@
-Cruz:
+slorber:
   name: Cruz Hernandez
   title: Software Engineer
   # url: https://github.com/yangshun
   image_url: https://github.com/yangshun.png
-  page: true
+  # page: true
   socials:
     github: https://github.com/archzedzenrun
 
-Nick:
+yangshun:
   name: Nick Perry
   title: Software Engineer
   # url: https://www.linkedin.com/in/nick-perry-9b86b2318/
   image_url: https://github.com/slorber.png
-  page:
+  # page:
     # customize the url of the author page at /blog/authors/<permalink>
-    permalink: '/all-sebastien-lorber-articles'
+    # permalink: '/all-sebastien-lorber-articles'
   socials:
     linkedin: sebastienlorber
     github: https://github.com/nickperry12
@@ -24,9 +24,9 @@ Paco:
   title: Docusaurus maintainer
   # url: https://sebastienlorber.com
   image_url: https://github.com/slorber.png
-  page:
+  # page:
     # customize the url of the author page at /blog/authors/<permalink>
-    permalink: '/all-sebastien-lorber-articles'
+    # permalink: '/all-sebastien-lorber-articles'
   socials:
     linkedin: sebastienlorber
     github: https://github.com/jeffbbz
@@ -36,9 +36,9 @@ Esther:
   title: Docusaurus maintainer
   # url: https://sebastienlorber.com
   image_url: https://github.com/slorber.png
-  page:
+  # page:
     # customize the url of the author page at /blog/authors/<permalink>
-    permalink: '/all-sebastien-lorber-articles'
+    # permalink: '/all-sebastien-lorber-articles'
   socials:
     linkedin: sebastienlorber
     github: https://github.com/ekim1009

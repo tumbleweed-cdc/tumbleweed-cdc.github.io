@@ -61,9 +61,13 @@ Time-based CDC requires semi-invasive database schema changes by adding timestam
 
 Trigger-based CDC involves using a built-in database function that is automatically triggered whenever an insert, update, or delete operation occurs on a table. These changes are then stored in what is often called a “shadow table”, which can then be used for propagation of data changes to downstream systems. While triggers are supported by most databases, this method requires multiple writes for every change which impacts the source database performance. It can also become cumbersome to manage a large number of triggers.
 
+![Trigger Based CDC](/img/Trigger-based_CDC.png "Trigger Based CDC")
+
 Although both time-based and trigger-based CDC still remain in use, log-based CDC has emerged as a generally more efficient and less invasive technique by capturing changes directly from database transaction logs.
 
 ### 2.5.1 Log-based CDC
+
+![Log Based CDC](/img/log-based-cdc.png)
 
 For applications that need to access data in near-real time, Log-based CDC is the most widely-used among the various CDC solutions.  When changes happen to a database via create, update, or delete operations, the database writes these changes into the transaction log before they are written to the database. In PostgreSQL the transaction log is known as the Write-Ahead Log (WAL). The primary use for transaction logs is backup and recovery, but various CDC tools can read from these logs in order to replicate changes and send them to other systems.
 
@@ -73,8 +77,6 @@ Some of the advantages of log-based CDC include:
 - Changes are received in the same order that they occurred, ensuring data consistency.
 
 One of the disadvantages of Log-based CDC is that it is highly dependent on the type of source database being used. No universal log format or mechanisms between different types of databases results in less flexibility in CDC solutions. For example, Tumbleweed only works with PostgreSQL and would require significant modification in order to accommodate other database types.
-
-## References
 
 [^1]: [C. Posta, “Why Microservices Should Be Event Driven: Autonomy vs Authority,” Software Blog, May 27, 2016](https://blog.christianposta.com/microservices/why-microservices-should-be-event-driven-autonomy-vs-authority/).
 [^2]: [C. Posta, “The hardest part about microservices: your data,” Software Blog, Jul. 14, 2016.](https://blog.christianposta.com/microservices/the-hardest-part-about-microservices-data/)
