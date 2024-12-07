@@ -9,12 +9,30 @@
 
 .heroBanner {
   padding: 4rem 0;
-  text-align: center;
   position: relative;
   overflow: hidden;
-  color: #70AF85;
-  font-family: "Koulen";
+  font-family: "Koulen", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fce197;
 }
+
+.hero__title {
+  font-size: 2.5rem;
+  color: #70AF85;
+}
+
+.hero__subtitle {
+  font-size: 1.125rem;
+  color: #555;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 
 @media screen and (max-width: 996px) {
   .heroBanner {
@@ -24,6 +42,5 @@
 
 .buttons {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* Align the button to the left */
 }

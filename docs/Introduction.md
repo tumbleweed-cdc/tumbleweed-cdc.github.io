@@ -4,7 +4,7 @@ sidebar_label: Introduction
 sidebar_position: 1
 ---
 
-# 1. Tumbleweed
+# 1. Introduction
 
 ![Tumbleweed Logo](/img/tumbleweed_logo.png)
 

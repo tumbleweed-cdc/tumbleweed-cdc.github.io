@@ -1,6 +1,5 @@
-
 interface MemberProps {
-  // image: string;
+  image: string;
   name: string;
   location: string;
   personalWebsite: string;
@@ -10,7 +9,7 @@ interface MemberProps {
 }
 
 function Member({
-  // image,
+  image,
   name,
   location,
   personalWebsite,
@@ -20,45 +19,20 @@ function Member({
 }: MemberProps) {
   return (
     <div className="portrait-card flex flex-col">
-      <div className="">
-        {/* <img className="max-h-64 portrait-img" src={image} /> */}
+      <div>
+        <img className="max-h-64 portrait-img" src={image} />
       </div>
-      <p className="lp-name text-gray-800 dark:text-gray-300 text-lg font-semibold text-left mt-2 mb-0 p-override text-center pb-4 md:pb-0">
+      <p className="lp-name text-gray-800 dark:text-gray-300 text-lg font-semibold text-center mt-2 mb-0 p-override pb-4 md:pb-0">
         {name}
       </p>
-      <p className="lp-para text-gray-600 dark:text-gray-400  text-left mb-1 p-override text-center">
+      <p className="lp-para text-gray-600 dark:text-gray-400 mb-1 p-override text-center">
         {location}
       </p>
       <div className="flex gap-1 mx-auto mt-4">
         <a
-          href={personalWebsite}
-          target="_blank"
-          className="inline-block text-willowGreen-600 hover:text-willowGreen-400 dark:text-willowGreen-300 dark:hover:text-willowGreen-100"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="icon icon-tabler icon-tabler-world"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            strokeWidth="2"
-            stroke="currentColor"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
-            <path d="M3.6 9h16.8"></path>
-            <path d="M3.6 15h16.8"></path>
-            <path d="M11.5 3a17 17 0 0 0 0 18"></path>
-            <path d="M12.5 3a17 17 0 0 1 0 18"></path>
-          </svg>
-        </a>
-        <a
           href={github}
           target="_blank"
-          className="inline-block text-willowGreen-600 hover:text-willowGreen-400 dark:text-willowGreen-300 dark:hover:text-willowGreen-100"
+          className="inline-block text-twOrange-600 hover:text-twOrange-400"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -79,12 +53,12 @@ function Member({
         <a
           href={linkedin}
           target="_blank"
-          className="inline-block text-willowGreen-600 hover:text-willowGreen-400 dark:text-willowGreen-300 dark:hover:text-willowGreen-100"
+          className="inline-block text-twOrange-600 hover:text-twOrange-400"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="icon icon-tabler icon-tabler-brand-linkedin"
-            width="24"
+            width="35"
             height="24"
             viewBox="0 0 24 24"
             strokeWidth="2"
@@ -103,7 +77,7 @@ function Member({
         </a>
         <a
           href={`mailto:${email}`}
-          className="inline-block text-willowGreen-600 hover:text-willowGreen-400 dark:text-willowGreen-300 dark:hover:text-willowGreen-100"
+          className="inline-block text-twOrange-600 hover:text-twOrange-400"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

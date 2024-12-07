@@ -18,6 +18,7 @@ Tumbleweed is an open-source, user-friendly framework designed specifically for 
 Tumbleweed integrates and containerizes a variety of open-source frameworks and tools, along with a custom TypeScript backend API into an AWS deployable cluster.
 
 ![Tumbleweed Architecture](/img/tumbleweed_simplified.png)
+<figcaption>Figure 1: Tumbleweed Architecture.</figcaption>
 
 In order to understand how Tumbleweed functions, it's necessary to examine some of these technologies more in depth.
 
@@ -36,6 +37,9 @@ While Kafka solved much of our data streaming needs, we needed a way to get the 
 Kafka Connect allows for transmission between Kafka and external systems via self-built or predefined connectors: Source connectors can ingest data from external producer systems into Kafka topics and sink connectors can output the data from Kafka topics to the external consumer systems subscribed to those topics[^4]. 
 
 Connect provides the connection to Kafka, but we still needed a source connector. In our research we came across Debezium, an open-source distributed platform that implements log-based Change Data Capture. Debezium offers a number of well-maintained and documented source connectors for use with Kafka Connect. These connectors can be used to capture and create event records with a consistent structure, regardless of the source database. We found that the Debezium PostgreSQL connector was well-suited for our purposes.
+
+![Kafka Connect with Debezium](/img/kafka_connect_debezium.png "Connect and Debezium")
+<figcaption>Figure 2: Kafka Connect with Debezium.</figcaption>
 
 Thus, Tumbleweed uses a Kafka Connect instance with Debezium PostgreSQL source connectors to listen to producer service outbox tables and capture every create, update, and delete transaction passing them to Kafka. They are then passed to our custom-built TypeScript Backend sink which streams the data to the appropriately subscribed consumer services.
 

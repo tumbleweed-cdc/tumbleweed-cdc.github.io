@@ -20,6 +20,9 @@ One solution for this problem is the use of Event Driven Architecture (EDA). In 
 
 In event stream processing, an event is a record or "...a small, self-contained, immutable object containing the details of something that happened at some point in time..."[^6] and an event stream is therefore an "unbounded, incrementally processed[^6] " stream of such data. Many event stream processing frameworks can also be described as asynchronous message-passing systems or message brokers.[^6] Generally speaking, message brokers allow producing processes to send messages or records to a topic or queue, then the broker facilitates the delivery of that data to subscribed consumers.
 
+![Event Streaming](/img/event_streaming.svg "Event streaming")
+<figcaption>Figure 2: Event Stream Processing.</figcaption>
+
 The use of a message broker has a number of advantages over direct messaging between services. It can act as a buffer for when consumers are unavailable and more easily allows for a single message to be sent to multiple consumers. This approach also promotes greater decoupling between producer and consumer services, allowing microservices to be designed agnostic as to whom the event data is being sent or how it is being consumed. [^7] Consumers,  likewise, subscribe to only the types of events that concern their business logic and receive these events for processing from the streaming platform.
 
 ## 2.3 The Dual-Write Problem
@@ -29,7 +32,13 @@ A dual-write may occur when data needs to be written to different systems. For e
 
 This process of writing changes to separate systems is where problems can arise and create data inconsistencies between services. If the data successfully writes to the source database but fails to be sent to a message broker due to some kind of application or network issue, the source database will have a record of the change even if the destination never receives it.
 
+![Dual Write 1](/img/dual-write_1.svg "Dual Write Problem 1")
+<figcaption>Figure 1: Fails to write to the message broker.</figcaption>
+
 On the other hand, if the data was successfully written to a message broker, but failed to write to the source database, the destination service received the message but the source database has no record of it. Either scenario can result in errors or data inconsistencies, complicating operations between services.
+
+![Dual Write 2](/img/dual-write_2.svg "Dual Write Problem 2")
+<figcaption>Figure 2: Fails to write to the source database.</figcaption>
 
 One solution is to only write changes once. If we chose to write changes to a broker, the source service would be listening for new messages, as well as the destination service. When a change occurs in the source service, the message is first sent to the broker before being consumed by both the source and destination services.
 
@@ -40,6 +49,9 @@ Instead, we could write changes to the source database before pushing messages t
 ## 2.4 The Outbox Pattern
 
 When using the transactional outbox pattern, database changes are recorded locally to a specially created “outbox” table within the same transaction as the original operation. Transactions in a database allow multiple actions to be carried out as a single logical operation. The outbox table stores metadata about the changes, such as the operation type, and a data payload. Separate processes should then monitor the outbox table for new entries and update the necessary microservices accordingly.
+
+![Outbox Pattern](/img/outbox_pattern.svg "Outbox Pattern")
+<figcaption>Figure 3: The outbox pattern.</figcaption>
 
 Outbox table schemas can vary but typically include the following columns:
 - `id`: A unique identifier for each outbox event
@@ -59,15 +71,20 @@ Data has become a fundamental component of our world and when it comes to choosi
 Change Data Capture (CDC) is the process of monitoring a source, capturing data changes in near real-time, and propagating those changes to a variety of downstream consumers, which may include other databases, caches, applications, and more. There are three primary CDC methods in common usage: time-based, trigger-based, and log-based. 
 Time-based CDC requires semi-invasive database schema changes by adding timestamp columns to each table that tracks when the row was last modified. While somewhat straightforward to implement, time-based CDC is unable to track delete operations and every row in a table must be scanned to find the latest updated value, making it suitable only when a small percentage of data changes.
 
+![Time Based CDC](/img/timestamp-based_CDC.svg "Timestamp Based CDC")
+<figcaption>Figure 4: Time-Based CDC</figcaption>
+
 Trigger-based CDC involves using a built-in database function that is automatically triggered whenever an insert, update, or delete operation occurs on a table. These changes are then stored in what is often called a “shadow table”, which can then be used for propagation of data changes to downstream systems. While triggers are supported by most databases, this method requires multiple writes for every change which impacts the source database performance. It can also become cumbersome to manage a large number of triggers.
 
 ![Trigger Based CDC](/img/Trigger-based_CDC.png "Trigger Based CDC")
+<figcaption>Figure 4: Trigger-Based CDC</figcaption>
 
 Although both time-based and trigger-based CDC still remain in use, log-based CDC has emerged as a generally more efficient and less invasive technique by capturing changes directly from database transaction logs.
 
 ### 2.5.1 Log-based CDC
 
 ![Log Based CDC](/img/log-based-cdc.png)
+<figcaption>Figure 5: Log-Based CDC</figcaption>
 
 For applications that need to access data in near-real time, Log-based CDC is the most widely-used among the various CDC solutions.  When changes happen to a database via create, update, or delete operations, the database writes these changes into the transaction log before they are written to the database. In PostgreSQL the transaction log is known as the Write-Ahead Log (WAL). The primary use for transaction logs is backup and recovery, but various CDC tools can read from these logs in order to replicate changes and send them to other systems.
 

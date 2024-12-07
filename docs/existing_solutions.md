@@ -13,12 +13,14 @@ There are several enterprise solutions which implement CDC systems for microserv
 Most enterprise solutions focus on broader CDC implementations and are more tailored to traditional source-to-sink replication between data stores. Several solutions, such as  Confluent[^1] and Striim[^2], do allow for managed log-based CDC pipelines to replicate data between microservices. Such solutions typically function well, however, they come with tradeoffs. These services are expensive and require recurring costs. Additionally, allowing the pipeline to be hosted by a managed service leads to decreased data privacy and less control over infrastructure. Additionally, managed CDC solutions, while usable, have not often been designed for the specific use of the outbox pattern data syncing between microservices.
 
 ![Striim Logo and Confluent Logo](/img/striim_confluent.png "Striim and Confluent Logos")
+<figcaption>Figure 1: Striim and Confluent.</figcaption>
 
 ## 3.2 DIY Solutions
 
 An alternative to enterprise solutions is DIY. DIY solutions can be built by utilizing open-source tools such as Debezium[^3] and Apache Kafka[^4], which offer extensive flexibility for data customization. Customizations include, but are not limited to schema evolution, data transformation, and topic customization. Building a DIY solution utilizing some of the aforementioned open-source tools may be a good fit for those teams that prefer to have more control over their infrastructure, with the option for extensive customizations in their CDC pipeline, while avoiding recurring costs from using an enterprise solution. These benefits come at the cost of managing the complex configurations of these tools, which may hinder a team's ability to deploy a CDC pipeline quickly. Without extensive research or experience in the problem domain and these technologies, even experienced developers will require considerable time to build a production ready DIY system.
 
 ![Kafka and Debezium Logos](/img/debezium_kafka.png "Kafka and Debezium Logos")
+<figcaption>Figure 2: Apache Kafka and Debezium.</figcaption>
 
 [^1]: [Confluent Developer: Your Apache Kafka® Journey begins here. (n.d.). Confluent.](https://developer.confluent.io/)
 [^2]: ["Striim (2024, October 28). Real-time data integration and streaming platform."](https://www.striim.com/1) 
