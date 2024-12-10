@@ -227,7 +227,7 @@ div.col--8 article h4 {
   --tw-contain-style:  ;
 }
 
-.container{
+.container {
   width: 100%;
 }
 
@@ -824,13 +824,29 @@ a[class*='footerLogoLink'] {
 }
 
 .hero__title {
-  font-size: 4.5rem;
+  font-size: 7.0rem;
   color: #5daa77;
+  font-family: "Koulen", sans-serif;
+  margin-bottom: 0px;
+  margin-left: -80px;
 }
 
 .hero__subtitle {
-  font-size: 2.125rem;
+  font-size: 3.125rem;
   color: #555;
+}
+
+.hero_subtitle_box {
+  padding: 8px;         /* Adds space inside the box */
+  background-color: #FCE197; /* Optional: Light background color */
+  display: inline-block; /* Optional: Adjust box size to content */
+  border-radius: 8px;    /* Optional: Rounds the corners of the box */
+  transform-origin: left;
+  width: 65%;
+  font-family: "Montserrat", sans-serif;
+  line-height: 1.2;
+  font-weight: 600;
+  margin-left: -80px;
 }
 
 .heroBanner {
@@ -853,3 +869,29 @@ a[class*='footerLogoLink'] {
 div.sidebar_njMd {
   background-color: #FCE197 !important;
 }
+
+header {
+  padding: 32px !important;
+}
+
+.homePage_main {
+  font-family: "Montserrat", sans-serif !important;
+}
+
+.theme-admonition.theme-admonition-note.alert.alert--secondary {
+  background-color: rgb(213, 245, 213); /* Light blue */
+  border-left: 4px solid #70AF85; /* Blue border */
+}
+
+.admonitionIcon_Rf37 svg path{
+  display: none; /* Hide the default SVG */
+}
+
+.admonitionIcon_Rf37 {
+  background-image: url('/img/FaviconTumbleweedTransparent.ico'); /* Path to your custom SVG */
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+}
+

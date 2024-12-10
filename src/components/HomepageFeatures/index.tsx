@@ -4,101 +4,33 @@ import styles from './styles.module.css';
 import Team from './Team';
 import FadeInSection from './FadeInSection';
 
-// function Component1() {
-//   return (
-//     <div className="max-w-full mx-auto flex justify-between gap-5 py-8 2xl:px-48 lg:py-20 px-8 bg-gray-100 sectionA place-items-center">
-//       <div className="w-[100%] lg:w-[80%] hidden md:block">
-//         <figure>
-//           <img
-//             src="/img/tumbleweed_roll_gif.gif"
-//             className="diagram screenshot"
-//             alt="A demonstration of Tumbleweed."
-//           />
-//         </figure>
-//       </div>
-//       <div className="text-center">
-//         <h1 className="text-gray-600 dark:text-slate-100 text-4xl md:text-[44px] font-medium tracking-tight leading-tight md:leading-[52px] mt-0">
-//           Sync microservices in near real-time via change data capture and the outbox pattern
-//         </h1>
-//         <figure>
-//           <img
-//             src="/img/case-study/3.1-demo.gif"
-//             className="diagram screenshot max-w-[450px] md:hidden w-[90%]"
-//             alt="A demonstration of Tumbleweed."
-//           />
-//         </figure>
-//         <p className="text-gray-600 dark:text-slate-100 uppercase text-large tracking-wide font-semibold mt-6 mb-2">
-//           Technologies
-//         </p>
-//         <div className="flex gap-4 md:mt-3 justify-center">
-//           <img className="size-full w-14" src="/img/debezium.svg" />
-//           <img className="size-full w-14 dark:hidden" src="/img/kafka.svg" />
-//           <img
-//             className="size-full w-8 hidden dark:block mx-3"
-//             src="/img/kafka_white.svg"
-//           />
-//           <img className="size-full w-14" src="/img/typescript.svg" />
-//           <img className="size-full w-14 ml-2" src="/img/docker.svg" />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 function Component1() {
   return (
-    <div className="dark:sectionB max-w-full mx-auto flex justify-between py-8 gap-5 2xl:px-48 lg:py-20 px-8 items-center">
+    <div className="max-w-full mx-auto flex justify-start py-8 gap-5 2xl:px-48 lg:py-20 px-8 items-center">
       <div className="text-center py-0">
-        <h1 className="text-gray-600 dark:text-slate-100 text-4xl md:text-[44px] font-medium tracking-tight leading-tight md:leading-[52px] mt-0">
+        <h1 className="text-gray-600 text-left text-4xl md:text-[44px] font-medium tracking-tight leading-tight md:leading-[52px] mt-0">
           Easy to setup and teardown
         </h1>
-        <p className="text-gray-600 dark:text-slate-100 text-xl tracking-wide mt-6 mb-2">
+        <p className="text-gray-600 text-2xl tracking-wide mt-6 mb-2 text-left font-normal">
           Without requiring in-depth technical knowledge, pipelines, sources, and topics can be
           created or deleted using Tumbleweed's intuitive UI
         </p>
       </div>
       <div className="w-[100%] lg:w-[60%] hidden md:block">
         <img
-          src="/img/tumbleweed_roll_gif.gif"
+          src="/img/tumbleweed_roll_v3.gif"
           alt="Tumbleweed Roll Clip"
-          className="align-top object-fill border-2 rounded shadow-[0_0_10px_grey] dark:shadow-none"
+          className="align-top object-fill border-2 rounded shadow-[0_0_30px_grey] border-[#E5E7EB]"
         />
       </div>
     </div>
   );
 }
 
-// function Component2() {
-//   return (
-//     <div className="dark:sectionB max-w-full mx-auto flex justify-between py-8 gap-5 2xl:px-48 lg:py-20 px-8 items-center">
-//       {/* Image container */}
-//       <div className="w-[100%] lg:w-[60%] hidden md:block">
-//         <img
-//           src="/img/tumbleweed_roll_gif.gif"
-//           alt="source form"
-//           className="align-top object-fill border-2 rounded shadow-[0_0_10px_grey] dark:shadow-none"
-//         />
-//       </div>
-
-//       {/* Text content */}
-//       <div className="flex flex-col justify-center w-[100%] lg:w-[40%] text-left">
-//         <h1 className="text-gray-600 dark:text-slate-100 text-4xl md:text-[44px] font-medium tracking-tight leading-tight md:leading-[52px] mt-0">
-//           Easy to setup and teardown
-//         </h1>
-//         <p className="text-gray-600 dark:text-slate-100 text-xl tracking-wide mt-6 mb-2">
-//           Without requiring in-depth technical knowledge, pipelines, sources, and topics can be
-//           created or deleted using Tumbleweed's intuitive UI
-//         </p>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-function Component3() {
+function Component2() {
   return (
     <div className="max-w-full mx-auto flex justify-center gap-5 py-8 2xl:px-48 lg:py-20 px-8 bg-gray-100 sectionA place-items-center">
-      <div className="w-[100%] lg:w-[60%] 2xl:w-[53%] hidden md:block">
+      <div className="w-[100%] lg:w-[80%] 2xl:w-70%] hidden md:block">
         <img
           src="/img/tumbleweed_simplified.png"
           alt="Producer Consumer Image"
@@ -106,13 +38,38 @@ function Component3() {
         />
       </div>
       <div className="text-center">
-        <h1 className="text-gray-600 dark:text-slate-100 text-4xl md:text-[44px] font-medium tracking-tight leading-tight md:leading-[52px] mt-0">
+        <h1 className="text-gray-600 text-4xl md:text-[44px] font-medium tracking-tight leading-tight md:leading-[52px] mt-0 text-right">
           Tumbleweed's Architecture
         </h1>
+        <p className="text-gray-600 text-2xl tracking-wide mt-6 mb-2 text-right font-normal">
+          Tumblweed uses Apache Kafka and Debezium to capture changes in your PostgresSQL database and propagate them to your microservices
+        </p>
         <img
           src="/img/home-page-diy.png"
           alt="Producer Consumer"
           className="max-w-[450px] md:hidden w-[90%] mx-auto border-2 rounded block shadow-[0_0_10px_grey]"
+        />
+      </div>
+    </div>
+  );
+}
+
+function Component3() {
+  return (
+    <div className="max-w-full mx-auto flex justify-start py-8 gap-5 2xl:px-48 lg:py-20 px-8 items-center">
+      <div className="text-center py-0">
+        <h1 className="text-gray-600 text-left text-4xl md:text-[44px] font-medium tracking-tight leading-tight md:leading-[52px] mt-0">
+          Tumbleweed UI
+        </h1>
+        <p className="text-gray-600 text-2xl tracking-wide mt-6 mb-2 text-left font-normal">
+          Tumbleweed's clean and simple UI allows users to create sources, consumers, and topics
+        </p>
+      </div>
+      <div className="w-[100%] lg:w-[60%] hidden md:block">
+        <img
+          src="/img/using_tumbleweed_1.png"
+          alt="Tumbleweed UI"
+          className="align-top object-fill border-2 rounded shadow-[0_0_30px_grey] border-[#E5E7EB]"
         />
       </div>
     </div>
@@ -198,18 +155,16 @@ function Component3() {
 
 export default function HomepageFeatures(): JSX.Element {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col homePage_main">
       <FadeInSection fadeDistance={350}> 
         <Component1 />
       </FadeInSection>
-      {/* <FadeInSection fadeDistance={350}> 
-        <Component2 />
-      </FadeInSection> */}
-
       <FadeInSection fadeDistance={350}>
+        <Component2 />
+      </FadeInSection>
+      <FadeInSection fadeDistance={350}> 
         <Component3 />
       </FadeInSection>
-
       <FadeInSection fadeDistance={350}>
         <Team />
       </FadeInSection>

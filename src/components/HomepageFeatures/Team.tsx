@@ -3,7 +3,7 @@ const Team = () => {
   return (
     <section className="sectionB" id="team">
       <article className="max-w-6xl mx-auto flex flex-col justify-center gap-8 py-20 px-6">
-        <h2 className="lp-para text-center text-3xl tracking-wide font-semibold text-gray-600 dark:text-gray-300 mb-2">Team Tumbleweed</h2>
+        <h2 className="lp-para text-center text-3xl tracking-wide font-semibold text-gray-600mb-2">Team Tumbleweed</h2>
         <div className="flex flex-col md:flex-row gap-2 md:gap-8 mx-auto">
           <Member
             name="Cruz Hernandez"

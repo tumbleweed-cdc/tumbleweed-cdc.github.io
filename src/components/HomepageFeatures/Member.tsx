@@ -22,10 +22,10 @@ function Member({
       <div>
         <img className="max-h-64 portrait-img" src={image} />
       </div>
-      <p className="lp-name text-gray-800 dark:text-gray-300 text-lg font-semibold text-center mt-2 mb-0 p-override pb-4 md:pb-0">
+      <p className="lp-name text-gray-800 text-lg font-semibold text-center mt-2 mb-0 p-override pb-4 md:pb-0">
         {name}
       </p>
-      <p className="lp-para text-gray-600 dark:text-gray-400 mb-1 p-override text-center">
+      <p className="lp-para text-gray-600 mb-1 p-override text-center">
         {location}
       </p>
       <div className="flex gap-1 mx-auto mt-4">

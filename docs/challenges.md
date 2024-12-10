@@ -12,7 +12,7 @@ Although Debezium maintains a source connector which is a good fit for Tumblewee
 
 It seemed logical for Tumbleweed to create a custom sink connector for our pipeline. After researching, we found KafkaJS, a Node.JS Kafka client. This allowed us to integrate Kafka communication into our architecture. KafkaJS was used to create the connection between Kafka and the consumers, monitoring topics specified by the user and streaming incoming messages to a provided Tumbleweed endpoint via Server Sent Events (SSE). SSE creates a unidirectional long-lived HTTP connection from server to client, allowing us to push messages to consumers in real time, which is ideal for the goals of our application. In order for a consumer service to receive these messages, only a small amount of code is required in their codebase, and this can be written in any language that supports SSE.
 
-Two other options we explored were the use of websockets or polling. Websockets are a communication protocol that allow for real-time, bi-directional communication between a client and a server. The connection between client and server is persistent; once the connection is established, data can be transmitted between the client and server in real time. While the real-time communication capabilities of websockets suited our needs, we did not need bi-directional communication. Additionally, websocket implementation adds a greater degree of complexity than SSE.
+Two other options we explored were the use of websockets or polling. Websockets are a communication protocol that allow for real-time, bi-directional communication between a client and a server. The connection between client and server is persistent; once the connection is established, data can be transmitted between the client and server in real time. While the real-time communication capabilities of websockets suited our needs, we did not need bi-directional communication. 
 
 Polling is another method that can be used for real-time communication between servers and clients. There are two different types of polling – short and long. Short polling involves a client repeatedly sending HTTP requests in regular intervals to the server to check for new data. The advantage to using short polling is that it’s simple to implement on both the client and server side, and is ideal for requests that take a long time to execute, as it allows for asynchronous processing. The drawbacks are that short polling can result in excessive network requests, leading to increased server loads and network traffic. Additionally, updated data is only received during the polling intervals; the user does not receive their data as quickly as compared to other solutions.
 
@@ -20,9 +20,11 @@ Long polling differs from short polling in that it keeps the connection open unt
 
 ## 6.2 Terraform Deployment with Multi-Node Kafka Cluster
 When writing the configuration files for Terraform and deploying the Tumbleweed infrastructure, we ran into issues with the Kafka brokers, Kafka controllers, Connect and the Tumbleweed backend API not being able to communicate with each other. This miscommunication resulted in the services not being able to reach a stable running state. 
+
 In the early versions and development stages of Tumbleweed, we used Docker to run our Kafka containers, and for the most part, inter-container communication was abstracted away from us, due to the fact it was running on our local machines and using Docker's default networking settings. Transitioning to ECS deployment introduced new challenges in enabling containers to communicate securely, while also restricting external access to services that did not need to be publicly exposed.
 
 To resolve these issues, we used Amazon ECS Service Discovery to provide DNS hostnames for each of our services, allowing simplified service-to-service communication in our ECS cluster. We also utilized a VPC (Virtual Private Cloud), a NAT (Network Address Translation), an Internet Gateway, security groups and routing tables to manage internal and external communication.
+
 
 ## 6.3 Multiple Pipelines Sharing a Single Replication Slot in Development
 ### What is a replication slot?
@@ -33,7 +35,15 @@ A replication slot is a feature in Postgres that provides a robust way to handle
 
 The production version of Tumbleweed is meant to be run as a single pipeline instance for a full architecture of services, with a single source connector for each producer service. During the early development stages of Tumbleweed, each member of our team had their own instance of Tumbleweed running, but these individual instances shared the same replication slot on the same AWS RDS source database.
 
-A PostgreSQL replication slot will only emit changes once[^4]. If those changes are captured by a single pipeline, they can be later streamed to any number of downstream consumers. However, as our team was running multiple pipeline instances, these changes were only captured by a single instance, and therefore only the consumers of that instance would receive data. This caused some initial difficulties during testing, but the final production version of Tumbleweed solves this problem by only allowing a single uniquely named replication slot per source database.
+A PostgreSQL replication slot will only emit changes once[^4]. If those changes are captured by a single pipeline, they can be later streamed to any number of downstream consumers. However, as our team was running multiple pipeline instances, these changes were only captured by a single instance, and therefore only the consumers of that instance would receive data. 
+
+![Shared Replication Slot](/img/shared_replication_slot.svg)
+<figcaption>Figure 1: Different instances sharing a single replication slot.</figcaption>
+
+The solution to this issue in development was to create a unique replication slot name for each connector. This replication slot name was based on the connector details that the user provides when creating a new source. In doing so, we were able to ensure that each developer was able to connect to the same source database for testing, and still consume the data.
+
+While this issue was related to development of Tumbleweed, it should not arise in production. However, to make sure that such a scenario cannot be introduced unintentionally, the production version allows for only a single uniquely-named replication slot per source connector.
+
 
 ## 6.4 Managing WAL Disk Size Growth in PostgreSQL on AWS RDS
 
@@ -57,6 +67,7 @@ The third and final solution was to create the heartbeat table as in the second 
 
 While this solution controlled the growth of the WAL disk size, we recognize that this may not be an issue in production. The source databases users will be providing will more than likely be in a continuously active state, i.e., data being written and messages being consumed frequently. However, in the event that this was not the case or for pre-production testing of a user's services with a Tumbleweed pipeline, we aimed to provide a solution that prevented the WAL disk size from growing out of control and crashing their database.
 
+
 ## 6.5 Securing Tumbleweed
 
 Security is important when building an application that manages and interacts with a user’s data. Tumbleweed is self-hosted and auto-deployed to AWS ECS on the user’s AWS account. Each user spins up their own instance of Tumbleweed which is accessed via a public IP provided by ECS.
@@ -64,6 +75,8 @@ Security is important when building an application that manages and interacts wi
 This deployment model introduced security challenges. Because the users access Tumbleweed through a public IP address, our primary focus was on preventing unauthorized access to the pipeline’s data and infrastructure. Securing Tumbleweed required implementing robust measures to protect communication channels, and control access through whitelisted IPs, IAM roles and policies.
 
 ### Whitelisting IPs for Controlled Access to Pipeline UI
+
+** insert diagram here
 
 During Tumbleweed’s installation, the user is prompted to provide a list of IP addresses to whitelist. These IP addresses are stored in a Terraform variable, which is then used to configure an ECS security group, granting controlled access to the application. This is done through creating inbound rules that allow traffic only from the specified IP addresses. By doing this, we ensure that access to the application is tightly controlled and limited to trusted resources.
 

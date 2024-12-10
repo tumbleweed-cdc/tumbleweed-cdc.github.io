@@ -14,9 +14,11 @@ function HomepageHeader() {
         <Heading as="h1" className="hero__title">
           Tumbleweed
         </Heading>
-        <p className="hero__subtitle">
-          An open-source framework designed for fast and consistent data propagation between microservices.
-        </p>
+        <div className="hero_subtitle_box">
+          <p className="hero__subtitle">
+            An open-source framework designed for fast and consistent data propagation between microservices.
+          </p>
+        </div>
         <div className={styles.buttons}>
         <a
           href="/docs/introduction"
@@ -34,7 +36,7 @@ export default function Home(): JSX.Element {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
+      title={'Tumbleweed Case Study'}
       description="Description will go into a meta tag in <head />">
       <HomepageHeader />
       <main>

@@ -10,11 +10,15 @@ sidebar_position: 2
 
 Microservice architectures have become a prominent solution to the difficulties involved in maintaining and scaling large-scale applications. Whereas monolithic architecture functionality is built into a single unit of tightly-coupled components, a microservice architecture separates core functionality into smaller, independent services. These services are typically distributed across a network. This allows for each service to be maintained and scaled independently as needed, which in turn allows for faster development cycles.
 
-The flexibility and scalability of a distributed architecture introduces additional challenges, particularly in the realm of inter-service communication and data exchange. A good microservice architecture involves the decoupling of services from each other. In other words, services should be as autonomous as possible, with few external dependencies.[^1] It is precisely this autonomy and loose coupling between services that provides much of the benefit of microservice architectures: allowing for services to fail and/or change in isolation, scale as needed, and more.
+![Microservice vs Monolith](/img/microservices_monolith.svg "Microservices vs Monolith")
+<figcaption>Figure 1: Monolith VS Microservice architecture.</figcaption>
 
-Perhaps the greatest challenge[^2] then becomes how to exchange data between services under famously unreliable and complex circumstances[^3], while maintaining this autonomy and decoupling. Services that need to interact are required to update both their own data and propagate this data and/or send notification of the data changes to other services. While this can be done via some manner of synchronous point-to-point API (ex. REST, RPC) between services, such an approach would require the services to be aware of each other to a degree that creates more coupling than is ideal in microservice architectures. Such tight coupling can lead to issues in a variety of ways, such as when a service becomes unavailable, when implementing new services, or when refactoring existing services.[^4] Additionally, if data is propagated in a synchronous manner, this can become a blocking bottleneck with cascading effects throughout the system.
+The flexibility and scalability of a distributed architecture introduces additional challenges, particularly in the realm of inter-service communication and data exchange. A good microservice architecture involves the decoupling of services from each other. In other words, services should be as autonomous as possible, with few external dependencies [^1]. It is precisely this autonomy and loose coupling between services that provides much of the benefit of microservice architectures: allowing for services to fail and/or change in isolation, scale as needed, and more.
+
+Perhaps the greatest challenge [^2] then becomes how to exchange data between services under famously unreliable and complex circumstances[^3], while maintaining this autonomy and decoupling. Services that need to interact are required to update both their own data and propagate this data and/or send notification of the data changes to other services. While this can be done via some manner of synchronous point-to-point API (ex. REST, RPC) between services, such an approach would require the services to be aware of each other to a degree that creates more coupling than is ideal in microservice architectures. Such tight coupling can lead to issues in a variety of ways, such as when a service becomes unavailable, when implementing new services, or when refactoring existing services.[^4] Additionally, if data is propagated in a synchronous manner, this can become a blocking bottleneck with cascading effects throughout the system.
 
 One solution for this problem is the use of Event Driven Architecture (EDA). In EDA, any “state changes” in a service can also be viewed as events, and records of such events can be sent as messages to be consumed by other services.[^5] Services that need to communicate assume the role of event producers and/or event consumers. We can further enhance the strong decoupling of this approach by introducing an event stream processing platform to receive data from producers and propagate them to downstream consumers.
+
 
 ## 2.2 Event Stream Processing and Message Brokers
 
@@ -28,17 +32,19 @@ The use of a message broker has a number of advantages over direct messaging bet
 ## 2.3 The Dual-Write Problem
 
 As we’ve seen, a microservice architecture introduces many challenges related to data management across services and one of the most notable is the dual-write problem.
+
 A dual-write may occur when data needs to be written to different systems. For example, if one service has its own database and needs to propagate information to other services, the data is typically written to the source database as well as another system, such as a message broker, before reaching its destination.
 
 This process of writing changes to separate systems is where problems can arise and create data inconsistencies between services. If the data successfully writes to the source database but fails to be sent to a message broker due to some kind of application or network issue, the source database will have a record of the change even if the destination never receives it.
 
+
 ![Dual Write 1](/img/dual-write_1.svg "Dual Write Problem 1")
-<figcaption>Figure 1: Fails to write to the message broker.</figcaption>
+<figcaption>Figure 3: Fails to write to the message broker.</figcaption>
 
 On the other hand, if the data was successfully written to a message broker, but failed to write to the source database, the destination service received the message but the source database has no record of it. Either scenario can result in errors or data inconsistencies, complicating operations between services.
 
 ![Dual Write 2](/img/dual-write_2.svg "Dual Write Problem 2")
-<figcaption>Figure 2: Fails to write to the source database.</figcaption>
+<figcaption>Figure 4: Fails to write to the source database.</figcaption>
 
 One solution is to only write changes once. If we chose to write changes to a broker, the source service would be listening for new messages, as well as the destination service. When a change occurs in the source service, the message is first sent to the broker before being consumed by both the source and destination services.
 
@@ -46,54 +52,84 @@ This scenario comes with its own drawbacks. While data may eventually be consist
 
 Instead, we could write changes to the source database before pushing messages to a broker. For such an approach, a microservice architecture design pattern known as the “transactional outbox pattern” can be used.
 
+
 ## 2.4 The Outbox Pattern
 
-When using the transactional outbox pattern, database changes are recorded locally to a specially created “outbox” table within the same transaction as the original operation. Transactions in a database allow multiple actions to be carried out as a single logical operation. The outbox table stores metadata about the changes, such as the operation type, and a data payload. Separate processes should then monitor the outbox table for new entries and update the necessary microservices accordingly.
+The outbox pattern ensures “at-least-once” message delivery by allowing for a single transactional write. Transactions in a database allow multiple actions to be carried out as a single logical operation. When using the transactional outbox pattern, database changes are recorded locally to a specially created “outbox” table within the same transaction as the original operation. External processes then monitor the database for changes to the outbox table, then create and propagate event records of those changes to downstream microservices accordingly. 
 
 ![Outbox Pattern](/img/outbox_pattern.svg "Outbox Pattern")
-<figcaption>Figure 3: The outbox pattern.</figcaption>
+<figcaption>Figure 5: The outbox pattern.</figcaption>
 
 Outbox table schemas can vary but typically include the following columns:
-- `id`: A unique identifier for each outbox event
+- `id`: A unique identifier for each outbox event which can be used by a messaging system for duplicate detection.
 - `aggregatetype`: An event descriptor, often called a topic, which can be used for categorized routing of event records via a messaging system. For example, In an order propagating service, a change to an orders database might have the aggregate type of “orders”.
 - `type`: An event category sub-type, e.g. “order_created” which can be used by an event stream processing framework and/or consumer microservices for filtering purposes or triggering various actions.
 - `payload`: A JSONB object that contains the actual data of the event, e.g. the row-level data change to the orders database.
 - `aggregateid`: An event key which is the ID of the payload and is used for correct ordering of event records in a messaging system.
 
-Though the outbox pattern is an effective solution to the dual-write problem, it also comes with its own potential drawbacks. Source services now have to write additional statements to insert data to an outbox table, which could have an impact on latency and throughput. In most situations, this likely wouldn’t be noticeable, but may be something to consider if your application is processing large volumes of data. There is also a risk of losing messages or accumulating excess data if the outbox table is not properly managed.
+The outbox pattern is not only an effective solution to the dual-write problem via a single database transaction, but also includes additional safe-guards for database schemas. Since the event record propagation of this pattern relies solely on the structure of the outbox and changes to that table, the entirety of the database schema is never fully exposed to a single endpoint. Each event record contains only the latest insert into the outbox table and these records are only routed to the consumers that require that specific data. 
 
-While the outbox pattern can be configured in multiple ways, implementing it via Change Data Capture can ensure that all changes to the source database are efficiently propagated to other microservices in near real-time.
+Additionally, as long as the outbox table structure itself remains consistent and insertions are properly handled in the producer service’s code, changes can be made to the service’s database schema without breaking the connection to consumer services or the stream processor. For example, columns in an orders table could be deleted or altered, but as long as the rows continued to be added as the payload to the outbox table, propagated events can still be handled without issue. Without this pattern, If we were propagating event records based on the changes to every table, consumers would be required to maintain knowledge of table schemas and have to update their code accordingly for any changes. As discussed previously, such coupling of consumers and producers is problematic in distributed systems, leading to less resiliency. Any database schema changes would likely lead to breaking changes across the propagation system.
+
+:::note Drawbacks of the outbox pattern
+The outbox pattern comes with its own potential drawbacks. Source services now have to write additional statements to insert data to an outbox table, which could have an impact on latency and throughput. In most situations, this likely wouldn’t be noticeable, but may be something to consider if your application is processing large volumes of data. There is also a risk of losing messages or accumulating excess data if the outbox table is not properly managed.
+:::
+
+### 2.4.1 Implementing the Outbox: Polling vs. CDC
+There are two primary methods for implementing the outbox pattern: Polling and Change Data Capture (CDC). Both methods require creating an outbox table and performing transactional writes to it, along with writes to the other tables that need to be tracked. Both methods also allow for data changes to be passed to a stream processing system or message broker. The difference lies in how the data changes are monitored and propagated to the rest of the system.
+
+When using polling to implement the outbox pattern, background processes query the outbox table for new inserts at a defined interval. When updates are found, outbox entries are marked as processed to avoid duplicate messaging. In such a scenario, the outbox table would need an additional “processed_at” column. These processes will also need error handling and retry logic for when communication with the outbox table fails, ensuring ‘at-least-once’ delivery[^8]. However, this approach can be resource-intensive and add additional load to the database. It can also be difficult to determine the correct polling interval, particularly in high throughput data systems where near-real time information is important[^9]. Perhaps most importantly, this approach can lead to data inconsistency due to missed messages or the inability to guarantee message ordering. If multiple transactions occur in parallel, entry into the outbox table may not be in the same order as the commits[^10].
+
+As we will explore in the following section, a simpler, more efficient, and intuitive approach is the implementation of this pattern via log-based Change Data Capture.
+
 
 ## 2.5 Change Data Capture
 
-Data has become a fundamental component of our world and when it comes to choosing the best way to manage and move that data, there are two common methods, Extract, Transform, Load (ETL) and Change Data Capture (CDC). ETL is a more traditional approach and most effective when data can be moved in larger batches (batch processing) at regular intervals. CDC is best used in streaming data contexts, where batching makes less sense, and information is needed in near real-time. Near real-time refers to systems that can tolerate slightly longer than the 250 milliseconds required for hard real-time. As many modern data systems involve a non-stop flow of data, CDC is taking prominence as a valuable approach.
+Change Data Capture (CDC) is the process of monitoring a source database, capturing data changes, and propagating those changes to a variety of downstream consumers, which may include other databases, caches, applications, and more. In recent years, CDC has emerged as a leading method for near-real time database change propagation in event streaming contexts. There are three primary CDC methods in common usage: time-based, trigger-based, and log-based. 
 
-Change Data Capture (CDC) is the process of monitoring a source, capturing data changes in near real-time, and propagating those changes to a variety of downstream consumers, which may include other databases, caches, applications, and more. There are three primary CDC methods in common usage: time-based, trigger-based, and log-based. 
-Time-based CDC requires semi-invasive database schema changes by adding timestamp columns to each table that tracks when the row was last modified. While somewhat straightforward to implement, time-based CDC is unable to track delete operations and every row in a table must be scanned to find the latest updated value, making it suitable only when a small percentage of data changes.
+The time-based CDC approach requires adding a modification timestamp column (e.g. “updated_at”) to each table, then polling those tables at regular intervals to track when rows have been altered. 
 
 ![Time Based CDC](/img/timestamp-based_CDC.svg "Timestamp Based CDC")
-<figcaption>Figure 4: Time-Based CDC</figcaption>
+<figcaption>Figure 6: Time-Based CDC</figcaption>
 
-Trigger-based CDC involves using a built-in database function that is automatically triggered whenever an insert, update, or delete operation occurs on a table. These changes are then stored in what is often called a “shadow table”, which can then be used for propagation of data changes to downstream systems. While triggers are supported by most databases, this method requires multiple writes for every change which impacts the source database performance. It can also become cumbersome to manage a large number of triggers.
+While somewhat straightforward to implement, time-based CDC comes with several disadvantages[^11]:
+- **Schema modification**: It may be common for a table to have an updated_at timestamp column, but those that do not must be altered, which is not always possible.
+- **Deletion detection**: This approach is unable to detect hard delete operations. Instead of deleting rows, soft deletes can be implemented by adding a deletion indicator column (e.g. “deleted_at”), but this again requires schema modification and can also lead to table bloat.
+- **Higher latency**: Capturing data at intervals may mean the process is no longer occurring in real-time.
+- **Performance degradation**: Requires constant additional database queries which can be a particular burden when dealing with large amounts of data.
+
+The trigger-based CDC approach shares similarities with the polling implementation of the outbox pattern discussed in the previous section and was a prominent CDC method before the development of log-based CDC. It involves using a built-in database function that is automatically triggered whenever an insert, update, or delete operation occurs on a table. These changes are then stored in what is often called a “shadow table”, which can then be queried for data changes for propagation to downstream systems. 
 
 ![Trigger Based CDC](/img/Trigger-based_CDC.png "Trigger Based CDC")
-<figcaption>Figure 4: Trigger-Based CDC</figcaption>
+<figcaption>Figure 7: Trigger-Based CDC</figcaption>
+
+While triggers are supported by most databases, this method also comes with several disadvantages, especially as a database grows larger[^12]:
+- **Performance degradation**: Multiple writes are required for each operation. This can slow down high-frequency transactions, especially if there are a high amount of triggers.
+- **Higher latency**: This approach can lead to higher latency due to the need for consistent querying of the shadow table.
+- **Scalability**: A large amount of triggers can become difficult to manage.
+- **Transactional consistency**: Multiple parallel writes to the shadow table may result in inconsistent message ordering.
 
 Although both time-based and trigger-based CDC still remain in use, log-based CDC has emerged as a generally more efficient and less invasive technique by capturing changes directly from database transaction logs.
 
 ### 2.5.1 Log-based CDC
 
+For applications that need to access data in near-real time, Log-based CDC is the most widely-used among the various CDC solutions.  When changes happen to a database via create, update, or delete operations, the database writes these changes into a transaction log before they are written to the database. This log and its ordering are the source of truth for the database. In PostgreSQL, the transaction log is known as the Write-Ahead Log (WAL). The primary purpose of transaction logs is backup and recovery, but CDC tools have been developed to read from these logs in order to replicate changes and send them to other systems. These tools monitor the database transaction log and when a change occurs, create a record of that change event, and propagate it to downstream consumers.
+
 ![Log Based CDC](/img/log-based-cdc.png)
-<figcaption>Figure 5: Log-Based CDC</figcaption>
+<figcaption>Figure 8: Log-Based CDC</figcaption>
 
-For applications that need to access data in near-real time, Log-based CDC is the most widely-used among the various CDC solutions.  When changes happen to a database via create, update, or delete operations, the database writes these changes into the transaction log before they are written to the database. In PostgreSQL the transaction log is known as the Write-Ahead Log (WAL). The primary use for transaction logs is backup and recovery, but various CDC tools can read from these logs in order to replicate changes and send them to other systems.
+Some of the advantages of log-based CDC include[^13]:
+- **Guaranteed in-order delivery**: Because log-based CDC relies solely on the log for tracking changes, these changes are received in the same order that they occurred, ensuring data consistency.
+- **Minimal database performance impact**: Changes are read from transaction logs instead of the direct database querying methods employed by other methods.
+- **Real-time message propagation**: Unlike with polling and querying approaches, capturing changes directly from the log allows for near real-time data transfer with minimal delays.
+- **Low Data Model Impact**: As the transaction log automatically records all insert, delete, update operations in a table, database tables do not require modification for use with log-based CDC.
 
-Some of the advantages of log-based CDC include:
-- Near real-time tracking of changes, ensuring quick delivery to target systems.
-- Minimal performance impact on source database since changes are read from transaction logs instead of the direct database querying method that other techniques may use.
-- Changes are received in the same order that they occurred, ensuring data consistency.
+One of the disadvantages of Log-based CDC is that it is highly dependent on the type of source database being used. No universal log format or mechanisms between different types of	databases result in less flexibility in CDC solutions.
 
-One of the disadvantages of Log-based CDC is that it is highly dependent on the type of source database being used. No universal log format or mechanisms between different types of databases results in less flexibility in CDC solutions. For example, Tumbleweed only works with PostgreSQL and would require significant modification in order to accommodate other database types.
+### 2.5.2 Implementing the Outbox Pattern via Log-based CDC
+
+Given the benefits and drawbacks of the various approaches discussed above, it is clear why log-based Change Data Capture is a prominent method for implementing the outbox pattern for near real-time data exchange. Insertions to the outbox table are recorded by the database transaction log which is being monitored by an external CDC connection agent watching for changes made to the outbox table. When such changes occur, the agent creates a record of the change event and copies the row change from the outbox table into its payload. This is then sent to an event stream processing platform for further propagation to downstream services.
+
 
 [^1]: [C. Posta, “Why Microservices Should Be Event Driven: Autonomy vs Authority,” Software Blog, May 27, 2016](https://blog.christianposta.com/microservices/why-microservices-should-be-event-driven-autonomy-vs-authority/).
 [^2]: [C. Posta, “The hardest part about microservices: your data,” Software Blog, Jul. 14, 2016.](https://blog.christianposta.com/microservices/the-hardest-part-about-microservices-data/)
@@ -102,7 +138,9 @@ One of the disadvantages of Log-based CDC is that it is highly dependent on the 
 [^5]: [J. Skowronski, “Best Practices for Event-Driven Microservice Architecture,” dzone.com, Sep. 11, 2019.](https://dzone.com/articles/best-practices-for-event-driven-microservice-archi)
 [^6]: M. Kleppmann, Designing data-intensive applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems. Oreilly & Associates Incorporated, 2017.
 [^7]: [“What is event-driven architecture?,” redhat.com, Sep. 27, 2019.](https://www.redhat.com/en/topics/integration/what-is-event-driven-architecture)
-[^8]: [J. Kreps, “Benchmarking Apache Kafka: 2 million writes per second (On three cheap machines),” LinkedIn, Apr. 27, 2014.](https://engineering.linkedin.com/kafka/benchmarking-apache-kafka-2-million-writes-second-three-cheap-machines)
-[^9]: [“Reliable microservices data exchange with the outbox pattern,” Debezium, Feb. 19, 2019.](https://debezium.io/blog/2019/02/19/reliable-microservices-data-exchange-with-the-outbox-pattern/)
+[^8]:  K. Grzybek, “The outbox pattern — Kamil Grzybek.” https://www.kamilgrzybek.com/blog/posts/the-outbox-pattern
+[^9]: “Push-based Outbox Pattern with Postgres Logical Replication - Event-Driven.io,” Lazywill, Oct. 23, 2022. https://event-driven.io/en/push_based_outbox_pattern_with_postgres_logical_replication/
 [^10]: [“Revisiting the outbox pattern.”](https://www.decodable.co/blog/revisiting-the-outbox-pattern)
-[^11]: [“What is Change Data Capture (CDC)? | Confluent,” Confluent.](https://www.confluent.io/learn/change-data-capture/)
+[^11]: J. Richman, “What is Change Data Capture (CDC)? How It Works, Benefits, Best Practices,” Estuary, Nov. 15, 2024. https://estuary.dev/the-complete-introduction-to-change-data-capture-cdc/
+[^12]: M. Van De Wiel, “Change data capture: Definition, benefits, and how to use it,” Fivetran Blog, Oct. 08, 2024. https://www.fivetran.com/blog/change-data-capture-what-it-is-and-how-to-use-it
+[^13]: “Five Advantages of Log-Based Change Data Capture,” Debezium, Jul. 19, 2018. https://debezium.io/blog/2018/07/19/advantages-of-log-based-change-data-capture/

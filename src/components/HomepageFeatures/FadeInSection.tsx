@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 
 type FadeInSectionProps = {
-  children: React.ReactNode; // Type for children
-  fadeDistance?: number; // Optional fadeDistance prop
+  children: React.ReactNode;
+  fadeDistance?: number;
 };
 
 const FadeInSection: React.FC<FadeInSectionProps> = ({
@@ -10,7 +10,7 @@ const FadeInSection: React.FC<FadeInSectionProps> = ({
   fadeDistance = 300,
 }) => {
   const [isVisible, setVisible] = useState(false);
-  const domRef = useRef<HTMLDivElement | null>(null); // Explicitly typed ref
+  const domRef = useRef<HTMLDivElement | null>(null);
 
   const checkVisibility = () => {
     if (!domRef.current) return;

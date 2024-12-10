@@ -14,6 +14,8 @@ const config: Config = {
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
+  organizationName: 'tumbleweed-cdc',
+  deploymentBranch: 'gh-pages',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -63,7 +65,6 @@ const config: Config = {
       defaultMode: 'light',
       disableSwitch: true
     },
-    // Replace with your project's social card
     image: 'img/FaviconTumbleweedTransparent.ico',
     navbar: {
       title: 'Tumbleweed',
@@ -88,15 +89,6 @@ const config: Config = {
         },
       ],
     },
-    // footer: {
-    //   style: 'light',
-    //   logo: {
-    //     alt: "Tumbleweed Logo",
-    //     src: "img/transparent_tumbleweed_logo.png",
-    //     width: 200,
-    //   },
-    //   copyright: `Copyright © ${new Date().getFullYear()} Tumbleweed`,
-    // },
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
