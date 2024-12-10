@@ -16,10 +16,7 @@
             <path d="M604,678.878L805.732,678.878" style="fill:none;stroke:rgb(51,30,20);stroke-width:11.22px;stroke-linejoin:bevel;"/>
         </g>
     </g>
-    <g id="Divider" transform="matrix(0.514658,0,0,0.545362,-52.0782,-170.056)">
-        <g transform="matrix(-1.99108e-16,-3.29833,0.479707,-1.20368e-15,1358.89,3838.68)">
-            <path d="M604,678.878L805.732,678.878" style="fill:none;stroke:rgb(51,30,20);stroke-width:4.87px;stroke-linejoin:bevel;"/>
-        </g>
+    <g id="Divider" transform="matrix(0.468714,0,0,0.496677,25.318,-114.367)">
         <g transform="matrix(0.431893,2.82517e-33,-2.99372e-33,0.407577,494.817,1000.76)">
             <g transform="matrix(1.03,0,0,1.07,-79.4796,-26.4202)">
                 <g transform="matrix(150.187,0,0,150.187,2649.32,377.431)">
@@ -35,8 +32,11 @@
                 </g>
             </g>
         </g>
-        <g transform="matrix(-1.99108e-16,-3.29833,0.479707,-1.20368e-15,1358.89,3085.38)">
-            <path d="M604,678.878L805.732,678.878" style="fill:none;stroke:rgb(51,30,20);stroke-width:4.87px;stroke-linejoin:bevel;"/>
+        <g transform="matrix(-1.58501e-16,-2.31398,0.381873,-8.44454e-16,1425.31,3056.3)">
+            <path d="M604,678.878L805.732,678.878" style="fill:none;stroke:rgb(51,30,20);stroke-width:7.6px;stroke-linejoin:bevel;"/>
+        </g>
+        <g transform="matrix(-1.58501e-16,-2.31398,0.381873,-8.44454e-16,1425.31,2478.77)">
+            <path d="M604,678.878L805.732,678.878" style="fill:none;stroke:rgb(51,30,20);stroke-width:7.6px;stroke-linejoin:bevel;"/>
         </g>
     </g>
     <defs>
