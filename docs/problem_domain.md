@@ -10,7 +10,7 @@ sidebar_position: 2
 
 Microservice architectures have become a prominent solution to the difficulties involved in maintaining and scaling large-scale applications. Whereas monolithic architecture functionality is built into a single unit of tightly-coupled components, a microservice architecture separates core functionality into smaller, independent services. These services are typically distributed across a network. This allows for each service to be maintained and scaled independently as needed, which in turn allows for faster development cycles.
 
-![Microservice vs Monolith](/img/microservices_monolith.svg "Microservices vs Monolith")
+![Microservice vs Monolith](/img/microservices_monolith_v2.svg "Microservices vs Monolith")
 <figcaption>Figure 1: Monolith VS Microservice architecture.</figcaption>
 
 The flexibility and scalability of a distributed architecture introduces additional challenges, particularly in the realm of inter-service communication and data exchange. A good microservice architecture involves the decoupling of services from each other. In other words, services should be as autonomous as possible, with few external dependencies [^1]. It is precisely this autonomy and loose coupling between services that provides much of the benefit of microservice architectures: allowing for services to fail and/or change in isolation, scale as needed, and more.
