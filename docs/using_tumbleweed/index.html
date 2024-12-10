@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.6.3">
-<title data-rh="true">Using Tumbleweed | Tumbleweed</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://tumbleweed-cdc.github.io/img/FaviconTumbleweedTransparent.ico"><meta data-rh="true" name="twitter:image" content="https://tumbleweed-cdc.github.io/img/FaviconTumbleweedTransparent.ico"><meta data-rh="true" property="og:url" content="https://tumbleweed-cdc.github.io/docs/using_tumbleweed"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Using Tumbleweed | Tumbleweed"><meta data-rh="true" name="description" content="1. Once Tumbleweed is deployed and stable on AWS, the CLI provides the user with a URL to access the Tumbleweed UI. They are first greeted by the landing page."><meta data-rh="true" property="og:description" content="1. Once Tumbleweed is deployed and stable on AWS, the CLI provides the user with a URL to access the Tumbleweed UI. They are first greeted by the landing page."><link data-rh="true" rel="icon" href="/img/tumbleweed_favicon.ico"><link data-rh="true" rel="canonical" href="https://tumbleweed-cdc.github.io/docs/using_tumbleweed"><link data-rh="true" rel="alternate" href="https://tumbleweed-cdc.github.io/docs/using_tumbleweed" hreflang="en"><link data-rh="true" rel="alternate" href="https://tumbleweed-cdc.github.io/docs/using_tumbleweed" hreflang="x-default"><link rel="stylesheet" href="/assets/css/styles.c260b191.css">
-<script src="/assets/js/runtime~main.6568b677.js" defer="defer"></script>
+<title data-rh="true">Using Tumbleweed | Tumbleweed</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://tumbleweed-cdc.github.io/img/FaviconTumbleweedTransparent.ico"><meta data-rh="true" name="twitter:image" content="https://tumbleweed-cdc.github.io/img/FaviconTumbleweedTransparent.ico"><meta data-rh="true" property="og:url" content="https://tumbleweed-cdc.github.io/docs/using_tumbleweed"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Using Tumbleweed | Tumbleweed"><meta data-rh="true" name="description" content="1. Once Tumbleweed is deployed and stable on AWS, the CLI provides the user with a URL to access the Tumbleweed UI. They are first greeted by the landing page."><meta data-rh="true" property="og:description" content="1. Once Tumbleweed is deployed and stable on AWS, the CLI provides the user with a URL to access the Tumbleweed UI. They are first greeted by the landing page."><link data-rh="true" rel="icon" href="/img/tumbleweed_favicon.ico"><link data-rh="true" rel="canonical" href="https://tumbleweed-cdc.github.io/docs/using_tumbleweed"><link data-rh="true" rel="alternate" href="https://tumbleweed-cdc.github.io/docs/using_tumbleweed" hreflang="en"><link data-rh="true" rel="alternate" href="https://tumbleweed-cdc.github.io/docs/using_tumbleweed" hreflang="x-default"><link rel="stylesheet" href="/assets/css/styles.e181e687.css">
+<script src="/assets/js/runtime~main.ca7d5a7f.js" defer="defer"></script>
 <script src="/assets/js/main.c1bec578.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -12,31 +12,32 @@
 <ol>
 <li>Once Tumbleweed is deployed and stable on AWS, the CLI provides the user with a URL to access the Tumbleweed UI. They are first greeted by the landing page.</li>
 </ol>
-<p><img decoding="async" loading="lazy" alt="Tumbleweed Landing Page" src="/assets/images/using_tumbleweed_1-3fb54f88ce7c882125b7da5936f1b8e2.png" title="Tumbleweed Landing Page" width="2940" height="1596" class="img_ev3q"></p>
+<figure><img src="/img/using_tumbleweed_1.png" class="Tumbleweed Landing Page" alt="Tumbleweed Landing Page" width="80%"></figure>
 <ol start="2">
 <li>A user can navigate to the sources page and create a new source database connection. This creates a new Debezium PostgreSQL connector on a target producer service database along with the topic(s) which that database will produce messages to. Creating a new source connector also builds an outbox table on the producer database.</li>
 </ol>
-<p><img decoding="async" loading="lazy" alt="Tumbleweed Sources Page" src="/assets/images/using_tumbleweed_2-9ca197159987109a5afbb2e0722c73f0.png" title="Tumbleweed Source Page" width="2940" height="1595" class="img_ev3q">
-<img decoding="async" loading="lazy" alt="Tumbleweed Source Info" src="/assets/images/using_tumbleweed_3-d29b25d4d4a80638d01a178034453692.png" title="Tumbleweed Source Info" width="2940" height="1598" class="img_ev3q">
-<img decoding="async" loading="lazy" alt="Tumbleweed Source Created" src="/assets/images/using_tumbleweed_4-af0903b5c5fe6a34ce57de8aa57f241b.png" title="Tumbleweed Source Created" width="2940" height="1596" class="img_ev3q"></p>
+<figure><img src="/img/using_tumbleweed_2.png" class="Tumbleweed Source Page" alt="Tumbleweed Source Page" width="80%"></figure>
+<figure><img src="/img/using_tumbleweed_3.png" class="Tumbleweed Source Info" alt="Tumbleweed Source Info" width="80%"></figure>
+<figure><img src="/img/using_tumbleweed_4.png" class="Tumbleweed Source Created" alt="Tumbleweed Source Created" width="80%"></figure>
 <ol start="3">
 <li>Once a source is created, the user can click on the source to see a source’s details.</li>
 </ol>
 <p><img decoding="async" loading="lazy" alt="Tumbleweed Source Details" src="/assets/images/using_tumbleweed_5-8836d9ea816d39a7b8efaf994789581e.png" title="Tumbleweed Source Details" width="2914" height="1466" class="img_ev3q"></p>
+<figure><img src="/img/using_tumbleweed_4.png" class="Tumbleweed Source Created" alt="Tumbleweed Source Created" width="80%"></figure>
 <ol start="4">
 <li>A user can then navigate to the consumers page and create a new consumer, which would be a microservice that “subscribes” to the Kafka topics for the event records produced at source microservices.</li>
 </ol>
-<p><img decoding="async" loading="lazy" alt="Tumbleweed Consumers Page" src="/assets/images/using_tumbleweed_6-299b58d0c1fe109d77579b8395a20494.png" title="Tumbleweed Consumers Page" width="2940" height="1594" class="img_ev3q">
-<img decoding="async" loading="lazy" alt="Tumbleweed Consumers Info" src="/assets/images/using_tumbleweed_7-1af53e01fede9124411a4c9b6e87acb9.png" title="Tumbleweed Consumers Info" width="2940" height="1596" class="img_ev3q">
-<img decoding="async" loading="lazy" alt="Tumbleweed Consumer Created" src="/assets/images/using_tumbleweed_8-87f56bf3fe4cbeb3618e0bfda2291e29.png" title="Tumbleweed Consumer Created" width="2940" height="1596" class="img_ev3q"></p>
+<figure><img src="/img/using_tumbleweed_6.png" class="Tumbleweed Consumers Page" alt="Tumbleweed Consumers Page" width="80%"></figure>
+<figure><img src="/img/using_tumbleweed_7.png" class="Tumbleweed Consumers Info" alt="Tumbleweed Consumers Info" width="80%"></figure>
+<figure><img src="/img/using_tumbleweed_8.png" class="Tumbleweed Consumer Created" alt="Tumbleweed Consumer Created" width="80%"></figure>
 <ol start="5">
 <li>Once a consumer is created, the user can click on the consumer to see the consumer’s details including a Tumbleweed endpoint URL. This URL can be used to create a connection for a consumer service to receive a stream of data from the topics they are subscribed to.</li>
 </ol>
-<p><img decoding="async" loading="lazy" alt="Tumbleweed Consumer Details" src="/assets/images/using_tumbleweed_9-dd1dc354a3ac08494010509e32326f9b.png" title="Tumbleweed Consumer Details" width="2914" height="1470" class="img_ev3q"></p>
+<figure><img src="/img/using_tumbleweed_9.png" class="Tumbleweed Consumer Details" alt="Tumbleweed Consumer Details" width="80%"></figure>
 <ol start="6">
 <li>Additionally, the user can click on the topics page to see the list of current topics and some details about each topic.</li>
 </ol>
-<p><img decoding="async" loading="lazy" alt="Tumbleweed Topics Page" src="/assets/images/using_tumbleweed_10-c5ad3756d7d13d744129c0ca53f2feb6.png" title="Tumbleweed Topics Page" width="2940" height="1596" class="img_ev3q">
-<img decoding="async" loading="lazy" alt="Tumbleweed Topics Details" src="/assets/images/using_tumbleweed_11-ec3dcff9a425866eeb10e2b71789a8ba.png" title="Tumbleweed Topics Details" width="2940" height="1596" class="img_ev3q"></p></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/tumbleweed"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Tumbleweed</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/challenges"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Challenges</div></a></nav></div></div></div></div></main></div></div></div></div>
+<figure><img src="/img/using_tumbleweed_10.png" class="Tumbleweed Topics Page" alt="Tumbleweed Topics Page" width="80%"></figure>
+<figure><img src="/img/using_tumbleweed_11.png" class="Tumbleweed Topics Details" alt="Tumbleweed Topics Details" width="80%"></figure></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/tumbleweed"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Tumbleweed</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/challenges"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Challenges</div></a></nav></div></div></div></div></main></div></div></div></div>
 </body>
 </html>
