@@ -466,15 +466,15 @@ div.col--8 article h4 {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
 
-.from-twGreen-600{
+/* .from-twGreen-600{
   --tw-gradient-from: #0f3e09 var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(64 153 53 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
+} */
 
-.to-heroContrast{
+/* .to-heroContrast{
   --tw-gradient-to: #4481BB var(--tw-gradient-to-position);
-}
+} */
 
 .object-fill{
   object-fit: fill;
@@ -828,25 +828,33 @@ a[class*='footerLogoLink'] {
   color: #5daa77;
   font-family: "Koulen", sans-serif;
   margin-bottom: 0px;
-  margin-left: -80px;
 }
 
 .hero__subtitle {
-  font-size: 3.125rem;
+  font-size: 2.8rem;
   color: #555;
+  text-align: left;
 }
+
+/* .to-heroContrast {
+  --tw-gradient-to: #fec459 var(--tw-gradient-to-position);
+} */
 
 .hero_subtitle_box {
   padding: 8px;         /* Adds space inside the box */
-  background-color: #FCE197; /* Optional: Light background color */
   display: inline-block; /* Optional: Adjust box size to content */
   border-radius: 8px;    /* Optional: Rounds the corners of the box */
   transform-origin: left;
-  width: 65%;
+  width: 55%;
   font-family: "Montserrat", sans-serif;
   line-height: 1.2;
   font-weight: 600;
-  margin-left: -80px;
+}
+
+.hero_subtitle_wrapper {
+  position: relative;
+  height: fit-content; /* Ensure only as big as the text */
+  border-radius: 8px;
 }
 
 .heroBanner {
@@ -857,14 +865,11 @@ a[class*='footerLogoLink'] {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fce197;
 }
 
-.buttons {
-  display: flex;
-  justify-content: flex-start; /* Align the button to the left */
-  color: #70AF85;
-}
+/* .heroBanner_qdFl {
+  background: linear-gradient(to right, #fec459, #fce197);
+} */
 
 div.sidebar_njMd {
   background-color: #FCE197 !important;
@@ -894,4 +899,3 @@ header {
   width: 20px;
   height: 20px;
 }
-

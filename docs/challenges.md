@@ -37,8 +37,10 @@ The production version of Tumbleweed is meant to be run as a single pipeline ins
 
 A PostgreSQL replication slot will only emit changes once[^4]. If those changes are captured by a single pipeline, they can be later streamed to any number of downstream consumers. However, as our team was running multiple pipeline instances, these changes were only captured by a single instance, and therefore only the consumers of that instance would receive data. 
 
-![Shared Replication Slot](/img/shared_replication_slot.svg)
-<figcaption>Figure 1: Different instances sharing a single replication slot.</figcaption>
+<figure>
+  <img src="/img/shared_replication_slot.svg" className="Sharing replication slot" alt="Sharing replication slot" width="80%"/>
+  <figcaption>Figure 1: Different instances sharing a single replication slot.</figcaption>
+</figure>
 
 The solution to this issue in development was to create a unique replication slot name for each connector. This replication slot name was based on the connector details that the user provides when creating a new source. In doing so, we were able to ensure that each developer was able to connect to the same source database for testing, and still consume the data.
 

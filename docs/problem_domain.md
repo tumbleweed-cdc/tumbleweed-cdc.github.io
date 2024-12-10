@@ -10,8 +10,10 @@ sidebar_position: 2
 
 Microservice architectures have become a prominent solution to the difficulties involved in maintaining and scaling large-scale applications. Whereas monolithic architecture functionality is built into a single unit of tightly-coupled components, a microservice architecture separates core functionality into smaller, independent services. These services are typically distributed across a network. This allows for each service to be maintained and scaled independently as needed, which in turn allows for faster development cycles.
 
-![Microservice vs Monolith](/img/microservices_monolith_v2.svg "Microservices vs Monolith")
-<figcaption>Figure 1: Monolith VS Microservice architecture.</figcaption>
+<figure>
+  <img src="/img/microservices_monolith_v2.svg" className="microserviceVsMonolith" alt="Microservice Vs Monolith" width="80%"/>
+  <figcaption>Figure 1: Monolith VS Microservice architecture.</figcaption>
+</figure>
 
 The flexibility and scalability of a distributed architecture introduces additional challenges, particularly in the realm of inter-service communication and data exchange. A good microservice architecture involves the decoupling of services from each other. In other words, services should be as autonomous as possible, with few external dependencies [^1]. It is precisely this autonomy and loose coupling between services that provides much of the benefit of microservice architectures: allowing for services to fail and/or change in isolation, scale as needed, and more.
 
@@ -24,8 +26,10 @@ One solution for this problem is the use of Event Driven Architecture (EDA). In 
 
 In event stream processing, an event is a record or "...a small, self-contained, immutable object containing the details of something that happened at some point in time..."[^6] and an event stream is therefore an "unbounded, incrementally processed[^6] " stream of such data. Many event stream processing frameworks can also be described as asynchronous message-passing systems or message brokers.[^6] Generally speaking, message brokers allow producing processes to send messages or records to a topic or queue, then the broker facilitates the delivery of that data to subscribed consumers.
 
-![Event Streaming](/img/event_streaming.svg "Event streaming")
-<figcaption>Figure 2: Event Stream Processing.</figcaption>
+<figure>
+  <img src="/img/event_streaming.svg" className="event streaming" alt="Event Stream Processing" width="80%"/>
+  <figcaption>Figure 2: Event Stream Processing.</figcaption>
+</figure>
 
 The use of a message broker has a number of advantages over direct messaging between services. It can act as a buffer for when consumers are unavailable and more easily allows for a single message to be sent to multiple consumers. This approach also promotes greater decoupling between producer and consumer services, allowing microservices to be designed agnostic as to whom the event data is being sent or how it is being consumed. [^7] Consumers,  likewise, subscribe to only the types of events that concern their business logic and receive these events for processing from the streaming platform.
 
@@ -37,14 +41,17 @@ A dual-write may occur when data needs to be written to different systems. For e
 
 This process of writing changes to separate systems is where problems can arise and create data inconsistencies between services. If the data successfully writes to the source database but fails to be sent to a message broker due to some kind of application or network issue, the source database will have a record of the change even if the destination never receives it.
 
-
-![Dual Write 1](/img/dual-write_1.svg "Dual Write Problem 1")
-<figcaption>Figure 3: Fails to write to the message broker.</figcaption>
+<figure>
+  <img src="/img/event_streaming.svg" className="Dual Write Problem 1" alt="Dual Write Problem 1" width="80%"/>
+  <figcaption>Figure 3: Fails to write to the message broker.</figcaption>
+</figure>
 
 On the other hand, if the data was successfully written to a message broker, but failed to write to the source database, the destination service received the message but the source database has no record of it. Either scenario can result in errors or data inconsistencies, complicating operations between services.
 
-![Dual Write 2](/img/dual-write_2.svg "Dual Write Problem 2")
-<figcaption>Figure 4: Fails to write to the source database.</figcaption>
+<figure>
+  <img src="/img/dual-write_2.svg" className="Dual Write Problem 2" alt="Dual Write Problem 2" width="80%"/>
+  <figcaption>Figure 4: Fails to write to the source database.</figcaption>
+</figure>
 
 One solution is to only write changes once. If we chose to write changes to a broker, the source service would be listening for new messages, as well as the destination service. When a change occurs in the source service, the message is first sent to the broker before being consumed by both the source and destination services.
 
@@ -57,8 +64,10 @@ Instead, we could write changes to the source database before pushing messages t
 
 The outbox pattern ensures “at-least-once” message delivery by allowing for a single transactional write. Transactions in a database allow multiple actions to be carried out as a single logical operation. When using the transactional outbox pattern, database changes are recorded locally to a specially created “outbox” table within the same transaction as the original operation. External processes then monitor the database for changes to the outbox table, then create and propagate event records of those changes to downstream microservices accordingly. 
 
-![Outbox Pattern](/img/outbox_pattern.svg "Outbox Pattern")
-<figcaption>Figure 5: The outbox pattern.</figcaption>
+<figure>
+  <img src="/img/outbox_pattern.svg" className="Outbox Pattern" alt="Outbox Pattern" width="80%"/>
+  <figcaption>Figure 5: The outbox pattern.</figcaption>
+</figure>
 
 Outbox table schemas can vary but typically include the following columns:
 - `id`: A unique identifier for each outbox event which can be used by a messaging system for duplicate detection.
@@ -89,8 +98,10 @@ Change Data Capture (CDC) is the process of monitoring a source database, captur
 
 The time-based CDC approach requires adding a modification timestamp column (e.g. “updated_at”) to each table, then polling those tables at regular intervals to track when rows have been altered. 
 
-![Time Based CDC](/img/timestamp-based_CDC.svg "Timestamp Based CDC")
-<figcaption>Figure 6: Time-Based CDC</figcaption>
+<figure>
+  <img src="/img/timestamp-based_CDC.svg" className="Timestamp Based CDC" alt="Timestamp Based CDC" width="80%"/>
+  <figcaption>Figure 6: Time-Based CDC</figcaption>
+</figure>
 
 While somewhat straightforward to implement, time-based CDC comes with several disadvantages[^11]:
 - **Schema modification**: It may be common for a table to have an updated_at timestamp column, but those that do not must be altered, which is not always possible.
@@ -100,8 +111,10 @@ While somewhat straightforward to implement, time-based CDC comes with several d
 
 The trigger-based CDC approach shares similarities with the polling implementation of the outbox pattern discussed in the previous section and was a prominent CDC method before the development of log-based CDC. It involves using a built-in database function that is automatically triggered whenever an insert, update, or delete operation occurs on a table. These changes are then stored in what is often called a “shadow table”, which can then be queried for data changes for propagation to downstream systems. 
 
-![Trigger Based CDC](/img/Trigger-based_CDC.png "Trigger Based CDC")
-<figcaption>Figure 7: Trigger-Based CDC</figcaption>
+<figure>
+  <img src="/img/Trigger-based_CDC.png" className="Trigger Based CDC" alt="Trigger Based CDC" width="80%"/>
+  <figcaption>Figure 7: Trigger-Based CDC</figcaption>
+</figure>
 
 While triggers are supported by most databases, this method also comes with several disadvantages, especially as a database grows larger[^12]:
 - **Performance degradation**: Multiple writes are required for each operation. This can slow down high-frequency transactions, especially if there are a high amount of triggers.
@@ -115,8 +128,10 @@ Although both time-based and trigger-based CDC still remain in use, log-based CD
 
 For applications that need to access data in near-real time, Log-based CDC is the most widely-used among the various CDC solutions.  When changes happen to a database via create, update, or delete operations, the database writes these changes into a transaction log before they are written to the database. This log and its ordering are the source of truth for the database. In PostgreSQL, the transaction log is known as the Write-Ahead Log (WAL). The primary purpose of transaction logs is backup and recovery, but CDC tools have been developed to read from these logs in order to replicate changes and send them to other systems. These tools monitor the database transaction log and when a change occurs, create a record of that change event, and propagate it to downstream consumers.
 
-![Log Based CDC](/img/log-based-cdc.png)
-<figcaption>Figure 8: Log-Based CDC</figcaption>
+<figure>
+  <img src="/img/log-based-cdc.png" className="Log-Based CDC" alt="Log-Based CDC" width="80%"/>
+  <figcaption>Figure 8: Log-Based CDC</figcaption>
+</figure>
 
 Some of the advantages of log-based CDC include[^13]:
 - **Guaranteed in-order delivery**: Because log-based CDC relies solely on the log for tracking changes, these changes are received in the same order that they occurred, ensuring data consistency.

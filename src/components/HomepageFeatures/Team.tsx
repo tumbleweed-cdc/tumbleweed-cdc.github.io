@@ -7,7 +7,7 @@ const Team = () => {
         <div className="flex flex-col md:flex-row gap-2 md:gap-8 mx-auto">
           <Member
             name="Cruz Hernandez"
-            image="/img/team/cruz_headshot.jpg"
+            image="/img/team/cruzbw.png"
             location="Reno, NV"
             personalWebsite=""
             github="https://github.com/archzedzenrun"
