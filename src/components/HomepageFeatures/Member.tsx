@@ -37,7 +37,7 @@ function Member({
         <a
           href={github}
           target="_blank"
-          className="inline-block text-twOrange-600 hover:text-twOrange-400"
+          className="inline-block text-#70AF85 hover:text-twOrange-400"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +45,7 @@ function Member({
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            strokeWidth="2"
+            strokeWidth="3"
             stroke="currentColor"
             fill="none"
             strokeLinecap="round"
@@ -58,7 +58,7 @@ function Member({
         <a
           href={linkedin}
           target="_blank"
-          className="inline-block text-twOrange-600 hover:text-twOrange-400"
+          className="inline-block text-70AF85-600 hover:text-twOrange-400"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +66,7 @@ function Member({
             width="35"
             height="24"
             viewBox="0 0 24 24"
-            strokeWidth="2"
+            strokeWidth="3"
             stroke="currentColor"
             fill="none"
             strokeLinecap="round"
@@ -82,7 +82,7 @@ function Member({
         </a>
         <a
           href={`mailto:${email}`}
-          className="inline-block text-twOrange-600 hover:text-twOrange-400"
+          className="inline-block text-70AF85 hover:text-twOrange-400"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -90,7 +90,7 @@ function Member({
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            strokeWidth="2"
+            strokeWidth="3"
             stroke="currentColor"
             fill="none"
             strokeLinecap="round"

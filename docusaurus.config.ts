@@ -1,5 +1,5 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
@@ -71,18 +71,20 @@ const config: Config = {
         src: 'img/FaviconTumbleweedTransparent.ico',
       },
       items: [
-        { to: '/docs/introduction', 
-          label: 'Case Study', 
-          position: 'right'},
+        {
+          to: '/docs/introduction',
+          label: 'CASE STUDY',
+          position: 'right'
+        },
         {
           to: "/#team",
-          label: "Team",
+          label: "TEAM",
           position: "right",
           activeBasePath: "never-active",
         },
         {
           href: 'https://github.com/tumbleweed-cdc',
-          label: 'GitHub',
+          label: 'GITHUB',
           position: 'right',
         },
       ],

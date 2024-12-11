@@ -11,8 +11,8 @@ sidebar_position: 2
 Microservice architectures have become a prominent solution to the difficulties involved in maintaining and scaling large-scale applications. Whereas monolithic architecture functionality is built into a single unit of tightly-coupled components, a microservice architecture separates core functionality into smaller, independent services. These services are typically distributed across a network. This allows for each service to be maintained and scaled independently as needed, which in turn allows for faster development cycles.
 
 <figure>
-  <img src="/img/microservices_monolith_v2.svg" className="microserviceVsMonolith" alt="Microservice Vs Monolith" width="80%"/>
-  <figcaption>Figure 1: Monolith VS Microservice architecture.</figcaption>
+  <img src="/img/microservices_monolith.png" className="microserviceVsMonolith" alt="Microservice Vs Monolith" width="80%"/>
+  <figcaption>Figure 1: Monolithic vs. Microservice architectures.</figcaption>
 </figure>
 
 The flexibility and scalability of a distributed architecture introduces additional challenges, particularly in the realm of inter-service communication and data exchange. A good microservice architecture involves the decoupling of services from each other. In other words, services should be as autonomous as possible, with few external dependencies [^1]. It is precisely this autonomy and loose coupling between services that provides much of the benefit of microservice architectures: allowing for services to fail and/or change in isolation, scale as needed, and more.
@@ -150,6 +150,7 @@ One of the disadvantages of Log-based CDC is that it is highly dependent on the 
 
 Given the benefits and drawbacks of the various approaches discussed above, it is clear why log-based Change Data Capture is a prominent method for implementing the outbox pattern for near real-time data exchange. Insertions to the outbox table are recorded by the database transaction log which is being monitored by an external CDC connection agent watching for changes made to the outbox table. When such changes occur, the agent creates a record of the change event and copies the row change from the outbox table into its payload. This is then sent to an event stream processing platform for further propagation to downstream services.
 
+---
 
 [^1]: [C. Posta, “Why Microservices Should Be Event Driven: Autonomy vs Authority,” Software Blog, May 27, 2016](https://blog.christianposta.com/microservices/why-microservices-should-be-event-driven-autonomy-vs-authority/).
 [^2]: [C. Posta, “The hardest part about microservices: your data,” Software Blog, Jul. 14, 2016.](https://blog.christianposta.com/microservices/the-hardest-part-about-microservices-data/)

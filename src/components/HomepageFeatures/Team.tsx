@@ -1,7 +1,7 @@
 import Member from "./Member";
 const Team = () => {
   return (
-    <section className="sectionB bg-gradient-to-r from-[#fec459] to-[#fce197] " id="team">
+    <section className="sectionB bg-gradient-to-t from-[#fec459] to-[#fce197]" id="team">
       <article className="max-w-6xl mx-auto flex flex-col justify-center gap-8 py-20 px-6">
         <h2 className="lp-para text-center text-5xl tracking-wide font-bold text-[#331e14] mb-6">Team Tumbleweed</h2>
         <div className="flex flex-col md:flex-row gap-2 md:gap-8 mx-auto">
@@ -18,7 +18,7 @@ const Team = () => {
           <Member
             name="Nick Perry"
             title="Software Engineer"
-            image="/img/team/nick_headshot.jpg"
+            image="/img/team/nick_headshot_dusty.png"
             location="Abbotsford, BC"
             personalWebsite=""
             github="https://github.com/nickperry12"
@@ -28,7 +28,7 @@ const Team = () => {
           <Member
             name="Paco Michelson"
             title="Software Engineer"
-            image="/img/team/paco_orange.png"
+            image="/img/team/paco_dusty.png"
             location="Fort Wayne, IN"
             personalWebsite=""
             github="https://github.com/jeffbbz"
@@ -38,7 +38,7 @@ const Team = () => {
           <Member
             name="Esther Kim"
             title="Software Engineer"
-            image="/img/team/esther_orange.png"
+            image="/img/team/esther_headshot_dusty.png"
             location="Queens, NY"
             personalWebsite=""
             github="https://github.com/ekim1009"

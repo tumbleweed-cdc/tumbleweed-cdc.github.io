@@ -23,7 +23,7 @@ Tumbleweed is an open-source, user-friendly framework designed specifically for 
 Tumbleweed integrates and containerizes a variety of open-source frameworks and tools, along with a custom TypeScript backend API into an AWS deployable cluster. 
 
 <figure>
-  <img src="/img/tumbleweed_simplified.png" className="Tumbleweed Architecture" alt="Tumbleweed Architecture" width="80%"/>
+  <img src="/img/tumbleweed_simplified_architecture.png" className="Tumbleweed Architecture" alt="Tumbleweed Architecture" width="80%"/>
   <figcaption>Figure 2: Tumbleweed Architecture.</figcaption>
 </figure>
 
@@ -94,6 +94,7 @@ A Tumbleweed pipeline is a complex cluster of containerized services. Deployment
 
 This process provisions and deploys a cluster of AWS ECS (Elastic Cloud Services) managed containers running on Fargate via the user’s AWS account. Each Tumbleweed user spins up their own private instance of this app which they access from a whitelisted IP address via a provided public URL.
 
+---
 
 [^1]: M. Kleppmann, Designing data-intensive applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems. Oreilly & Associates Incorporated, 2017.
 [^2]: [J. Kreps, “Benchmarking Apache Kafka: 2 million writes per second (On three cheap machines),” LinkedIn, Apr. 27, 2014.](https://engineering.linkedin.com/kafka/benchmarking-apache-kafka-2-million-writes-second-three-cheap-machines)

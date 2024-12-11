@@ -26,6 +26,8 @@ An alternative to enterprise solutions is to build a DIY framework. DIY solution
   <figcaption>Figure 2: Apache Kafka and Debezium.</figcaption>
 </figure>
 
+---
+
 [^1]: [Confluent Developer: Your Apache Kafka® Journey begins here. (n.d.). Confluent.](https://developer.confluent.io/)
 [^2]: ["Striim (2024, October 28). Real-time data integration and streaming platform."](https://www.striim.com/1) 
 [^3]: ["Debezium (n.d.) Debezium."](https://debezium.io/)
