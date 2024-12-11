@@ -17,7 +17,7 @@ sidebar_position: 5
   <img src="/img/using_tumbleweed_2.png" className="Tumbleweed Source Page" alt="Tumbleweed Source Page" width="80%"/>
 </figure>
 <figure>
-  <img src="/img/create_new_source.png" className="Tumbleweed Source Info" alt="Tumbleweed Source Info" width="80%"/>
+  <img src="/img/new_source.png" className="Tumbleweed Source Info" alt="Tumbleweed Source Info" width="80%"/>
 </figure>
 <figure>
   <img src="/img/using_tumbleweed_4.png" className="Tumbleweed Source Created" alt="Tumbleweed Source Created" width="80%"/>

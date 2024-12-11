@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body,
+a,
+a:hover {
+  cursor: url("../../static/img/tumbleweed_cursor.png"), auto;
+}
 
 :root {
   --ifm-color-primary: #70AF85;
@@ -994,11 +999,14 @@ a.menu__link {
 
 div.theme-doc-markdown.markdown h1 {
   font-family: "Koulen", sans-serif;
+  letter-spacing: 0.08rem;
 }
 
 div.theme-doc-markdown.markdown h2,
 h3,
 p,
+li,
+strong,
 figcaption {
   font-family: "Montserrat", sans-serif;
 }
@@ -1016,4 +1024,33 @@ h2.lp-para {
   letter-spacing: 0.07em;
   color: #5daa77;
   text-shadow: #331E14 1px 1px 1px;
+}
+
+section.footnotes h2 {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 1.3rem;
+}
+
+section.footnotes ol p {
+  font-size: 0.9rem !important;
+}
+
+section.footnotes li {
+  font-size: 0.9rem !important;
+}
+
+div.pagination-nav__sublabel,
+div.pagination-nav__label {
+  font-family: 'Montserrat', sans-serif;
+}
+
+div.pagination-nav__sublabel {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+div.admonitionHeading_Gvgb {
+  font-family: 'Koulen', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
 }

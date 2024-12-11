@@ -8,7 +8,7 @@ sidebar_position: 4
 Considering the trade-offs associated with enterprise CDC solutions and the complexity of building a DIY alternative, Tumbleweed recognized a gap in the available options for an end-to-end log-based CDC implementation of the outbox pattern.
 
 <figure>
-  <img src="/img/comparison_chart.svg" className="Comparison Chart" alt="Comparison Chart" width="80%"/>
+  <img src="/img/comparison_chart.svg" className="Comparison Chart" alt="Comparison Chart" width="60%"/>
   <figcaption>Figure 1: Comparison Chart.</figcaption>
 </figure>
 
@@ -36,7 +36,7 @@ A key element of an event driven architecture for decoupled microservices is a m
 Kafka is a distributed, log-based message broker designed for massive real-time data streaming. Kafka centralizes data transmission with a cluster of brokers and their controllers, allowing greater fault tolerance and data durability[^1]. Producer services send records to the brokers and Kafka appends these records to various write-ahead log "topics". Consumer services then subscribe to specific "topics" in order to get the data that they need. [^2] A producer can produce one or many topics regardless of available consumers, and a consumer can subscribe to one or many topics from one or more producers. This approach allows for decoupling of producer and consumer services.
 
 <figure>
-  <img src="/img/kafka.svg" className="Kafka Cluster" alt="Kafka Cluster" width="80%"/>
+  <img src="/img/kafka.png" className="Kafka Cluster" alt="Kafka Cluster" width="80%"/>
   <figcaption>Figure 3: Kafka cluster.</figcaption>
 </figure>
 
@@ -75,7 +75,7 @@ This issue can be alleviated by enforcing the use of specific data formats (e.g.
 Tumbleweed was created with the goal of being user-friendly. In order to achieve this, we needed to create a backend API to perform a plethora of actions on behalf of the user. 
 
 <figure>
-  <img src="/img/tumbleweed_backend.svg" className="Tumbleweed Backend" alt="Tumbleweed Backend" width="80%"/>
+  <img src="/img/tumbleweed_backend.png" className="Tumbleweed Backend" alt="Tumbleweed Backend" width="80%"/>
   <figcaption>Figure 6: Tumbleweed's backend architecture.</figcaption>
 </figure>
 
@@ -98,7 +98,7 @@ This process provisions and deploys a cluster of AWS ECS (Elastic Cloud Services
 
 [^1]: M. Kleppmann, Designing data-intensive applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems. Oreilly & Associates Incorporated, 2017.
 [^2]: [J. Kreps, “Benchmarking Apache Kafka: 2 million writes per second (On three cheap machines),” LinkedIn, Apr. 27, 2014.](https://engineering.linkedin.com/kafka/benchmarking-apache-kafka-2-million-writes-second-three-cheap-machines)
-[^3]: [“How LinkedIn customizes Apache Kafka for 7 trillion messages per day”](https://www.linkedin.com/blog/engineering/open-source/apache-kafka-trillion-messages)
+[^3]: [J. Lee and W. Wu, “How LinkedIn customizes Apache Kafka for 7 trillion messages per day,” LinkedIn Engineering Blog, Oct. 09, 2019.](https://www.linkedin.com/blog/engineering/open-source/apache-kafka-trillion-messages)
 [^4]: [“Kafka Connect | Confluent Documentation.”](https://docs.confluent.io/platform/current/connect/index.html)
-[^5]: [“What is the Schema Registry and why do you need to use it?”](https://conduktor.io/blog/what-is-the-schema-registry-and-why-do-you-need-to-use-it)
-[^6]: [“Using Debezium with the Apicurio API and Schema registry,” Debezium, Apr. 09, 2020.](https://debezium.io/blog/2020/04/09/using-debezium-with-apicurio-api-schema-registry/)
+[^5]: [L. Cooke, “What is the Schema Registry and why do you need to use it?,” Conduktor Blog, Nov. 24, 2022.](https://conduktor.io/blog/what-is-the-schema-registry-and-why-do-you-need-to-use-it)
+[^6]: [J. Pechanec, “Using Debezium with the Apicurio API and Schema registry,” Debezium Blog, Apr. 09, 2020.](https://debezium.io/blog/2020/04/09/using-debezium-with-apicurio-api-schema-registry/)

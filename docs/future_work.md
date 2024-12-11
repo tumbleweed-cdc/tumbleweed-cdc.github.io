@@ -49,4 +49,4 @@ Topics are currently created through inputting a comma-separated list of topic n
 
 ---
 
-[^1]: “JWT Documentation”: https://jwt.io/introduction
+[^1]: [“JSON Web Tokens Introduction,” jwt.io.](https://jwt.io/introduction)

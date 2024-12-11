@@ -13,7 +13,7 @@ Although Debezium maintains a source connector which is a good fit for Tumblewee
 It seemed logical for Tumbleweed to create a custom sink connector for our pipeline. After researching, we found KafkaJS, a Node.JS Kafka client. This allowed us to integrate Kafka communication into our architecture. KafkaJS was used to create the connection between Kafka and the consumers, monitoring topics specified by the user and streaming incoming messages to a provided Tumbleweed endpoint via Server Sent Events (SSE). 
 
 <figure>
-  <img src="/img/sse.svg" className="Server Sent Events" alt="Server Sent Events" width="80%"/>
+  <img src="/img/sse.png" className="Server Sent Events" alt="Server Sent Events" width="80%"/>
   <figcaption>Figure 1: Server Sent Events.</figcaption>
 </figure>
 
@@ -22,14 +22,14 @@ SSE creates a unidirectional long-lived HTTP connection from server to client, a
 Two other options we explored were the use of websockets or polling. Websockets are a communication protocol that allow for real-time, bi-directional communication between a client and a server. The connection between client and server is persistent; once the connection is established, data can be transmitted between the client and server in real time. While the real-time communication capabilities of websockets suited our needs, we did not need bi-directional communication. 
 
 <figure>
-  <img src="/img/websockets.svg" className="Websockets" alt="Websockets" width="80%"/>
+  <img src="/img/websockets.png" className="Websockets" alt="Websockets" width="80%"/>
   <figcaption>Figure 2: Websockets.</figcaption>
 </figure>
 
 Polling is another method that can be used for real-time communication between servers and clients. There are two different types of polling – short and long. Short polling involves a client repeatedly sending HTTP requests in regular intervals to the server to check for new data. The advantage to using short polling is that it’s simple to implement on both the client and server side, and is ideal for requests that take a long time to execute, as it allows for asynchronous processing. The drawbacks are that short polling can result in excessive network requests, leading to increased server loads and network traffic. Additionally, updated data is only received during the polling intervals; the user does not receive their data as quickly as compared to other solutions.
 
 <figure>
-  <img src="/img/short_polling.svg" className="Short-polling" alt="Short-polling" width="80%"/>
+  <img src="/img/short_polling.png" className="Short-polling" alt="Short-polling" width="80%"/>
   <figcaption>Figure 3: Short-Polling.</figcaption>
 </figure>
 
@@ -37,7 +37,7 @@ Polling is another method that can be used for real-time communication between s
 Long polling differs from short polling in that it keeps the connection open until new data arrives. Once the client receives the response/data, a new request is sent either immediately, or after a predetermined interval to establish a new connection. The advantage again lies in its simple implementation. However, reliable message ordering is not guaranteed due to the possibility of multiple HTTP requests from the same client to be in flight simultaneously[^1]. There is also higher latency due to the need to reopen connections, and the client having to wait for a server response. Finally, both forms of polling may face rate limiting issues if trying to receive the high volume of frequent responses which Tumbleweed would need to handle.
 
 <figure>
-  <img src="/img/long_polling.svg" className="Long-polling" alt="Long-polling" width="80%"/>
+  <img src="/img/long_polling.png" className="Long-polling" alt="Long-polling" width="80%"/>
   <figcaption>Figure 4: Long-Polling.</figcaption>
 </figure>
 
@@ -50,11 +50,10 @@ To resolve these issues, we used Amazon ECS Service Discovery to provide DNS hos
 
 
 ## 6.3 Multiple Pipelines Sharing a Single Replication Slot in Development
-### What is a replication slot?
 
+:::note What is a replication slot?
 A replication slot is a feature in Postgres that provides a robust way to handle data replication between a primary database server and one or more consumers, such as secondary Postgres servers, CDC tools, or other downstream systems[^2]. These replication slots ensure that no data is lost by keeping necessary WAL (Write-Ahead Log) files until all consumers have confirmed they have received that data [^3].  We can minimize performance impact on the database while maintaining consistent data change order by reading from the WAL instead of querying the database directly.
-
-### The Challenge
+:::
 
 The production version of Tumbleweed is meant to be run as a single pipeline instance for a full architecture of services, with a single source connector for each producer service. During the early development stages of Tumbleweed, each member of our team had their own instance of Tumbleweed running, but these individual instances shared the same replication slot on the same AWS RDS source database.
 
@@ -118,8 +117,8 @@ For public access control, public facing Tumbleweed Backend API ports were route
 
 ---
 
-[^1]: “Long Polling vs WebSockets - which to use in 2024” - https://ably.com/blog/websockets-vs-long-polling
-[^2]: “Replication slot in Postgres - Ladynobug - Medium,” Medium, Jan. 04, 2022. https://medium.com/@LadyNoBug/replication-slot-in-postgres-5059527a9e69
-[^3]: “What are PostgreSQL replication slots and how do they work?” https://www.dragonflydb.io/faq/postgresql-replication-slots
-[^4]: “47.2. Logical decoding concepts,” PostgreSQL Documentation, Nov. 21, 2024. https://www.postgresql.org/docs/17/logicaldecoding-explanation.html
-[^5]: “The insatiable postgres replication slot,” Gunnar Morling, Nov. 30, 2022. https://www.morling.dev/blog/insatiable-postgres-replication-slot/
+[^1]: [K. Kilbride-Singh, “Long Polling vs WebSockets - which to use in 2024,” Ably Realtime, Dec. 21, 2023.](https://ably.com/blog/websockets-vs-long-polling)
+[^2]: [“Replication slot in Postgres - Ladynobug - Medium,” Medium, Jan. 04, 2022](https://medium.com/@LadyNoBug/replication-slot-in-postgres-5059527a9e69)
+[^3]: [“What are PostgreSQL replication slots and how do they work?,” DragonflyDB.](https://www.dragonflydb.io/faq/postgresql-replication-slots)
+[^4]: [“47.2. Logical decoding concepts,” PostgreSQL Documentation, Nov. 21, 2024](https://www.postgresql.org/docs/17/logicaldecoding-explanation.html)
+[^5]: [G. Morling, “The insatiable postgres replication slot,” Gunnar Morling Blog, Nov. 30, 2022.](https://www.morling.dev/blog/insatiable-postgres-replication-slot/)

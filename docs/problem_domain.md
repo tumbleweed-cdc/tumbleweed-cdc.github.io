@@ -27,7 +27,7 @@ One solution for this problem is the use of Event Driven Architecture (EDA). In 
 In event stream processing, an event is a record or "...a small, self-contained, immutable object containing the details of something that happened at some point in time..."[^6] and an event stream is therefore an "unbounded, incrementally processed[^6] " stream of such data. Many event stream processing frameworks can also be described as asynchronous message-passing systems or message brokers.[^6] Generally speaking, message brokers allow producing processes to send messages or records to a topic or queue, then the broker facilitates the delivery of that data to subscribed consumers.
 
 <figure>
-  <img src="/img/event_streaming.svg" className="event streaming" alt="Event Stream Processing" width="80%"/>
+  <img src="/img/event_streaming.png" className="event streaming" alt="Event Stream Processing" width="80%"/>
   <figcaption>Figure 2: Event Stream Processing.</figcaption>
 </figure>
 
@@ -65,7 +65,7 @@ Instead, we could write changes to the source database before pushing messages t
 The outbox pattern ensures “at-least-once” message delivery by allowing for a single transactional write. Transactions in a database allow multiple actions to be carried out as a single logical operation. When using the transactional outbox pattern, database changes are recorded locally to a specially created “outbox” table within the same transaction as the original operation. External processes then monitor the database for changes to the outbox table, then create and propagate event records of those changes to downstream microservices accordingly. 
 
 <figure>
-  <img src="/img/outbox_pattern.svg" className="Outbox Pattern" alt="Outbox Pattern" width="80%"/>
+  <img src="/img/outbox_pattern.png" className="Outbox Pattern" alt="Outbox Pattern" width="80%"/>
   <figcaption>Figure 5: The outbox pattern.</figcaption>
 </figure>
 
@@ -104,7 +104,7 @@ Change Data Capture (CDC) is the process of monitoring a source database, captur
 The time-based CDC approach requires adding a modification timestamp column (e.g. “updated_at”) to each table, then polling those tables at regular intervals to track when rows have been altered. 
 
 <figure>
-  <img src="/img/timestamp-based_CDC.svg" className="Timestamp Based CDC" alt="Timestamp Based CDC" width="80%"/>
+  <img src="/img/Timestamp-based_CDC.png" className="Timestamp Based CDC" alt="Timestamp Based CDC" width="80%"/>
   <figcaption>Figure 7: Time-Based CDC</figcaption>
 </figure>
 
@@ -159,9 +159,9 @@ Given the benefits and drawbacks of the various approaches discussed above, it i
 [^5]: [J. Skowronski, “Best Practices for Event-Driven Microservice Architecture,” dzone.com, Sep. 11, 2019.](https://dzone.com/articles/best-practices-for-event-driven-microservice-archi)
 [^6]: M. Kleppmann, Designing data-intensive applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems. Oreilly & Associates Incorporated, 2017.
 [^7]: [“What is event-driven architecture?,” redhat.com, Sep. 27, 2019.](https://www.redhat.com/en/topics/integration/what-is-event-driven-architecture)
-[^8]:  K. Grzybek, “The outbox pattern — Kamil Grzybek.” https://www.kamilgrzybek.com/blog/posts/the-outbox-pattern
-[^9]: “Push-based Outbox Pattern with Postgres Logical Replication - Event-Driven.io,” Lazywill, Oct. 23, 2022. https://event-driven.io/en/push_based_outbox_pattern_with_postgres_logical_replication/
-[^10]: [“Revisiting the outbox pattern.”](https://www.decodable.co/blog/revisiting-the-outbox-pattern)
-[^11]: J. Richman, “What is Change Data Capture (CDC)? How It Works, Benefits, Best Practices,” Estuary, Nov. 15, 2024. https://estuary.dev/the-complete-introduction-to-change-data-capture-cdc/
-[^12]: M. Van De Wiel, “Change data capture: Definition, benefits, and how to use it,” Fivetran Blog, Oct. 08, 2024. https://www.fivetran.com/blog/change-data-capture-what-it-is-and-how-to-use-it
-[^13]: “Five Advantages of Log-Based Change Data Capture,” Debezium, Jul. 19, 2018. https://debezium.io/blog/2018/07/19/advantages-of-log-based-change-data-capture/
+[^8]:  [K. Grzybek, “The outbox pattern — Kamil Grzybek,” Kamil Grzybek Blog, Mar. 11, 2019.](https://www.kamilgrzybek.com/blog/posts/the-outbox-pattern)
+[^9]: [“Push-based Outbox Pattern with Postgres Logical Replication - Event-Driven.io,” Lazywill, Oct. 23, 2022.](https://event-driven.io/en/push_based_outbox_pattern_with_postgres_logical_replication/)
+[^10]: [G. Morling, “Revisiting the outbox pattern,” Decodable Blog, Oct. 31, 2024.](https://www.decodable.co/blog/revisiting-the-outbox-pattern)
+[^11]: [J. Richman, “What is Change Data Capture (CDC)? How It Works, Benefits, Best Practices,” Estuary, Nov. 15, 2024.](https://estuary.dev/the-complete-introduction-to-change-data-capture-cdc/)
+[^12]: [M. Van De Wiel, “Change data capture: Definition, benefits, and how to use it,” Fivetran Blog, Oct. 08, 2024.](https://www.fivetran.com/blog/change-data-capture-what-it-is-and-how-to-use-it)
+[^13]: [G. Morling, “Five Advantages of Log-Based Change Data Capture,” Debezium Blog, Jul. 19, 2018.](https://debezium.io/blog/2018/07/19/advantages-of-log-based-change-data-capture/)
