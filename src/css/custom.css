@@ -1054,3 +1054,13 @@ div.admonitionHeading_Gvgb {
   font-size: 1.1rem;
   letter-spacing: 0.05em;
 }
+
+.Tumbleweed {
+  vertical-align: top;
+  object-fit: contain;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #E5E7EB;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 20px #AA8976;
+}

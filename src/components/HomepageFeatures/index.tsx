@@ -6,8 +6,8 @@ const Section0 = () => {
     <div className="max-w-full mx-auto flex flex-wrap md:flex-nowrap justify-center gap-5 py-8 2xl:px-48 lg:py-20 px-8 bg-gray-100 sectionA place-items-center">
       <div className="w-full sm:w-[100%] md:w-[90%] 2xl:w-[85%] block">
         <img
-          src="/img/outbox_pattern.svg"
-          alt="Producer Consumer Image"
+          src="/img/outbox_pattern.png"
+          alt="Change Data Capture using the outbox pattern"
         // className="align-top object-contain rounded shadow-[0_0_10px_grey] dark:shadow-none"
         />
       </div>
