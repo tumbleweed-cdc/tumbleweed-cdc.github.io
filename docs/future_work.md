@@ -47,6 +47,10 @@ By adding filtering and transformation capabilities, Tumbleweed would offer user
 ## 7.4 Optional Topic Autofill from Source Database 
 Topics are currently created through inputting a comma-separated list of topic names when creating a source connector. However, it might be more user-friendly to generate a list of potential topics based on the source databases existing tables. Users could then select topics with ease, while still being able to manually input if necessary. By eliminating the requirement to manually input topics, the setup process would become more intuitive.
 
+<figure>
+  <img src="/img/tumbleweed_logo.png" className="Tumbleweed Logo" alt="Tumbleweed Logo" width="80%"/>
+</figure>
+
 ---
 
 [^1]: [“JSON Web Tokens Introduction,” jwt.io.](https://jwt.io/introduction)

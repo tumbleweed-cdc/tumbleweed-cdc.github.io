@@ -6,7 +6,9 @@ sidebar_position: 1
 
 # 1. Introduction
 
-![Tumbleweed Logo](/img/tumbleweed_logo.png)
+<figure>
+  <img src="/img/tumbleweed_logo.png" className="Tumbleweed Logo" alt="Tumbleweed Logo" width="80%"/>
+</figure>
 
 Tumbleweed is an open-source, user-friendly framework designed for fast and consistent data propagation between microservices via Change Data Capture and the transactional outbox pattern.
 

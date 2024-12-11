@@ -38,7 +38,7 @@ const Section1 = () => {
         <img
           src="/img/tumbleweed_roll_v3.gif"
           alt="Tumbleweed Roll Clip"
-          className="align-top object-contain border-2 rounded shadow-[0_0_20px_#AA8976] border-[#E5E7EB]"
+          className="align-top object-contain border-2 rounded-[20px] shadow-[0_0_20px_#AA8976] border-[#E5E7EB]"
         />
       </div>
     </div>
@@ -74,7 +74,7 @@ const Section3 = () => {
         <h1 className="text-[#331e14] text-left text-4xl md:text-[44px] font-medium tracking-tight leading-tight md:leading-[52px] mt-0">
           Intuitive UI
         </h1>
-        <p className="text-[#331e14] text-2xl tracking-wide mt-6 mb-2 text-left font-normal">
+        <p className="text-[#331e14] text-2xl tracking-wide mt-6 mb-2 text-left font-normal pr-[80px]">
           Simplifies the setup and management of source connectors, consumers, and topics.
         </p>
       </div>
@@ -84,7 +84,7 @@ const Section3 = () => {
           loop
           muted
           playsInline
-          className="align-top object-contain border-2 rounded shadow-[0_0_20px_#AA8976] border-[#70AF85]"
+          className="align-top object-contain border-2 rounded-[20px] shadow-[0_0_20px_#AA8976] border-[#70AF85]"
           src='/img/ui_demo_4.mp4'
         />
       </div>

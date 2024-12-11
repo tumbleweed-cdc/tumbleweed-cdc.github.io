@@ -5,7 +5,7 @@
 body,
 a,
 a:hover {
-  cursor: url("../../static/img/tumbleweed_cursor.png"), auto;
+  cursor: url("../../static/img/cactus_cursor.png"), auto;
 }
 
 :root {
@@ -1055,12 +1055,9 @@ div.admonitionHeading_Gvgb {
   letter-spacing: 0.05em;
 }
 
-.Tumbleweed {
+.using-tumbleweed-image {
   vertical-align: top;
   object-fit: contain;
-  border-width: 2px;
-  border-style: solid;
-  border-color: #E5E7EB;
-  border-radius: 0.25rem;
+  border-radius: 25px;
   box-shadow: 0 0 20px #AA8976;
 }

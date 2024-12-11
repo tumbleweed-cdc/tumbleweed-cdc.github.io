@@ -22,7 +22,7 @@ Although CDC can be used for implementation of the outbox pattern, most enterpri
 An alternative to enterprise solutions is to build a DIY framework. DIY solutions can be built by utilizing open-source tools such as Debezium[^3] and Apache Kafka[^4], which offer extensive flexibility for data customization. Custom options include, but are not limited to schema evolution, data transformation, and topic customization. Building a DIY solution utilizing some of the aforementioned open-source tools may be a good fit for those teams that prefer to have more control over their infrastructure, with the option for extensive customizations in their CDC pipeline, while avoiding recurring costs from using an enterprise solution. These benefits come at the cost of managing the complex configurations of these tools, which may hinder a team's ability to deploy a CDC pipeline quickly. Without extensive research or experience in the problem domain and these technologies, even experienced developers will require considerable time to build a production ready DIY system.
 
 <figure>
-  <img src="/img/debezium_kafka.png" className="Kafka and Debezium Logos" alt="Kafka and Debezium Logos" width="80%"/>
+  <img src="/img/kafka_debez_logos.png" className="Kafka and Debezium Logos" alt="Kafka and Debezium Logos" width="80%"/>
   <figcaption>Figure 2: Apache Kafka and Debezium.</figcaption>
 </figure>
 
