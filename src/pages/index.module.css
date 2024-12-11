@@ -40,5 +40,11 @@
 
 .buttons {
   display: flex;
-  justify-content: flex-start; /* Align the button to the left */
+  justify-content: left; /* Align the button to the left */
 }
+
+/* body {
+  cursor: url("../../static/img/tumbleweed_cursor.png"), auto;
+} */
+
+/* https://img.freepik.com/premium-psd/desert-tumbleweed-transparent-background_1259066-2843.jpg?w=826 */

@@ -1,6 +1,6 @@
 ---
 id: existing_solutions
-title: Existing Solutions
+title: 3. Existing Solutions
 sidebar_position: 3
 ---
 

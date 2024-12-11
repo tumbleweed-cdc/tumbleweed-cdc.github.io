@@ -1,6 +1,6 @@
 ---
 id: using_tumbleweed
-title: Using Tumbleweed
+title: 5. Using Tumbleweed
 sidebar_position: 5
 ---
 # 5. Using Tumbleweed
@@ -17,7 +17,7 @@ sidebar_position: 5
   <img src="/img/using_tumbleweed_2.png" className="Tumbleweed Source Page" alt="Tumbleweed Source Page" width="80%"/>
 </figure>
 <figure>
-  <img src="/img/using_tumbleweed_3.png" className="Tumbleweed Source Info" alt="Tumbleweed Source Info" width="80%"/>
+  <img src="/img/create_new_source.png" className="Tumbleweed Source Info" alt="Tumbleweed Source Info" width="80%"/>
 </figure>
 <figure>
   <img src="/img/using_tumbleweed_4.png" className="Tumbleweed Source Created" alt="Tumbleweed Source Created" width="80%"/>
@@ -25,9 +25,8 @@ sidebar_position: 5
 
 3. Once a source is created, the user can click on the source to see a source’s details. 
 
-![Tumbleweed Source Details](/img/using_tumbleweed_5.png "Tumbleweed Source Details")
 <figure>
-  <img src="/img/using_tumbleweed_4.png" className="Tumbleweed Source Created" alt="Tumbleweed Source Created" width="80%"/>
+  <img src="/img/using_tumbleweed_5.png" className="Tumbleweed Source Details" alt="Tumbleweed Source Details" width="80%"/>
 </figure>
 
 4. A user can then navigate to the consumers page and create a new consumer, which would be a microservice that “subscribes” to the Kafka topics for the event records produced at source microservices.

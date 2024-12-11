@@ -1,6 +1,7 @@
 interface MemberProps {
   image: string;
   name: string;
+  title: string;
   location: string;
   personalWebsite: string;
   github: string;
@@ -11,6 +12,7 @@ interface MemberProps {
 function Member({
   image,
   name,
+  title,
   location,
   personalWebsite,
   github,
@@ -22,10 +24,13 @@ function Member({
       <div>
         <img className="max-h-64 portrait-img" src={image} />
       </div>
-      <p className="lp-name text-gray-800 text-lg font-semibold text-center mt-2 mb-0 p-override pb-4 md:pb-0">
+      <p className="lp-name text-[#331e14] text-lg font-semibold text-center mt-2 mb-0 p-override pb-4 md:pb-0">
         {name}
       </p>
-      <p className="lp-para text-gray-600 mb-1 p-override text-center">
+      <p className="lp-para text-[#331e14] mb-1 p-override text-center">
+        {title}
+      </p>
+      <p className="lp-para text-[#331e14] mb-1 p-override text-center">
         {location}
       </p>
       <div className="flex gap-1 mx-auto mt-4">

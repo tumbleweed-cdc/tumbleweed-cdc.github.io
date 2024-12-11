@@ -1,14 +1,15 @@
 import Member from "./Member";
 const Team = () => {
   return (
-    <section className="sectionB" id="team">
+    <section className="sectionB bg-gradient-to-r from-[#fec459] to-[#fce197] " id="team">
       <article className="max-w-6xl mx-auto flex flex-col justify-center gap-8 py-20 px-6">
-        <h2 className="lp-para text-center text-3xl tracking-wide font-semibold text-gray-600mb-2">Team Tumbleweed</h2>
+        <h2 className="lp-para text-center text-5xl tracking-wide font-bold text-[#331e14] mb-6">Team Tumbleweed</h2>
         <div className="flex flex-col md:flex-row gap-2 md:gap-8 mx-auto">
           <Member
             name="Cruz Hernandez"
-            image="/img/team/cruzbw.png"
-            location="Reno, NV"
+            title="Software Engineer"
+            image="/img/team/cruzdusty.png"
+            location="Sparks, NV"
             personalWebsite=""
             github="https://github.com/archzedzenrun"
             linkedin="https://www.linkedin.com/in/cruz-hernandez-968778314/"
@@ -16,6 +17,7 @@ const Team = () => {
           />
           <Member
             name="Nick Perry"
+            title="Software Engineer"
             image="/img/team/nick_headshot.jpg"
             location="Abbotsford, BC"
             personalWebsite=""
@@ -25,7 +27,8 @@ const Team = () => {
           />
           <Member
             name="Paco Michelson"
-            image="/img/team/paco.jpg"
+            title="Software Engineer"
+            image="/img/team/paco_orange.png"
             location="Fort Wayne, IN"
             personalWebsite=""
             github="https://github.com/jeffbbz"
@@ -34,7 +37,8 @@ const Team = () => {
           />
           <Member
             name="Esther Kim"
-            image="/img/team/esther_headshot.jpg"
+            title="Software Engineer"
+            image="/img/team/esther_orange.png"
             location="Queens, NY"
             personalWebsite=""
             github="https://github.com/ekim1009"
