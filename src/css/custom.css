@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
   --ifm-color-primary: #2e8555;
   --ifm-color-primary-dark: #29784c;
@@ -785,8 +786,12 @@ a[class*='footerLogoLink'] {
 .hero__title {
   font-size: 5rem; /* Default size for larger screens */
   color: #5daa77;
+  text-shadow: #331E14 1.5px 1.5px 1.5px;
   font-family: "Koulen", sans-serif;
   margin-bottom: 1rem; /* Add spacing below the heading */
+  text-align: left; /* Ensure heading aligns to the left */
+  width: 100%; /* Ensure it spans the container width */
+  letter-spacing: 0.04em;
 }
 
 @media (max-width: 768px) {
@@ -803,9 +808,15 @@ a[class*='footerLogoLink'] {
 
 .hero__subtitle {
   font-size: 2.8rem; /* Default size for larger screens */
-  color: #5d4b40;
-  line-height: 1.6; /* Add spacing between lines */
-  margin-bottom: 2rem; /* Add spacing below the paragraph */
+  color: #524239;
+  line-height: 1.2; /* Add spacing between lines */
+  margin: 0; /* Remove conflicting margins */
+  text-align: left; /* Ensure text aligns to the left */
+  width: 100%; /* Ensure it spans the container width */
+  max-width: 70%; /* Constrain the maximum width */
+  font-family: "Montserrat", sans-serif;
+  font-weight: bolder;
+  /* text-shadow: 1px 1px 5px #bdbdbd86; */
 }
 
 @media (max-width: 768px) {
@@ -817,25 +828,25 @@ a[class*='footerLogoLink'] {
 .hero_subtitle_box {
   padding: 8px 0; /* Adjust padding for better spacing */
   border-radius: 8px;
-  max-width: 100%;
+  max-width: 60%;
   text-align: left; /* Ensure left alignment */
 }
 
 @media (max-width: 768px) {
   .hero_subtitle_box {
-    padding: 4px; /* Reduce padding for smaller screens */
+    padding: 2px; /* Reduce padding for smaller screens */
     width: auto; /* Let the box adjust automatically */
   }
 }
 
 .hero_subtitle_wrapper {
-  width: 80%; /* Match the width of the title */
+  width: 100%; /* Ensure it spans the container width */
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align subtitle to the left */
+  align-items: flex-start; /* Align items to the left */
   justify-content: center;
+  padding: 0; /* Ensure no conflicting padding */
   margin: 0 auto; /* Center the entire wrapper */
-  text-align: left; /* Align text to the left */
 }
 
 @media (max-width: 768px) {
@@ -846,23 +857,45 @@ a[class*='footerLogoLink'] {
 
 .hero_content {
   width: 100%;
-  max-width: 800px; /* Define a max width for alignment */
-  padding: 0 1.5rem; /* Add side padding for spacing */
-  margin: 0 auto; /* Center the entire content */
-  text-align: left; /* Align all child elements to the left */
+  max-width: 800px; /* Constrain the maximum width */
+  padding: 0 1.5rem; /* Add consistent side padding */
+  margin: 0 auto; /* Center the container */
+  text-align: left; /* Ensure all elements inside align left */
 }
 
+
 .hero_button {
-  display: inline-block;
+  color: rgb(255, 255, 255);
+  font-weight: 700;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  font-size: 1.125rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-radius: 9999px;
+  background-color: #5daa77;
+  margin-top: 2.0rem;
+  box-shadow: #331E14 1px 1px 1px;
+  font-family: "Montserrat", sans-serif;
+  /* text-shadow: black 1px 1px 1px; */
+}
+
+.hero_button:hover {
+  color:white;
+  background-color: #F58B33;
+  text-decoration: none;
+}
+  /* display: inline-block;
   padding: 1rem 2rem;
   background-color: #5daa77;
   color: white;
   font-size: 1.2rem;
   text-align: center;
+  text-shadow: black 1.5px 1.5px 1.5px;
   border-radius: 10px;
   text-decoration: none;
-  margin-top: 1rem; /* Add spacing above the button */
-}
+  margin-top: 1rem; */
+
 
 .heroBanner {
   padding: 4rem 0;
@@ -878,8 +911,8 @@ div.sidebar_njMd {
   background-color: #FCE197 !important;
 }
 
-header {
-  padding: 32px !important;
+.breadcrumbs__item {
+  display: none;
 }
 
 .homePage_main {
@@ -906,4 +939,8 @@ header {
 .lp-para {
   font-family: 'Montserrat', sans-serif;
   letter-spacing: -0.02em; 
+}
+
+div.col.docItemCol_VOVn {
+  margin: 0 20px;
 }

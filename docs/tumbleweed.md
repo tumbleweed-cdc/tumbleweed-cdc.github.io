@@ -1,6 +1,6 @@
 ---
 id: tumbleweed
-title: Tumbleweed
+title: 4. Tumbleweed
 sidebar_position: 4
 ---
 # 4. Tumbleweed
@@ -76,7 +76,7 @@ Tumbleweed was created with the goal of being user-friendly. In order to achieve
 
 <figure>
   <img src="/img/tumbleweed_backend.svg" className="Tumbleweed Backend" alt="Tumbleweed Backend" width="80%"/>
-  <figcaption>Figure 6: Tumbleweed's backend.</figcaption>
+  <figcaption>Figure 6: Tumbleweed's backend architecture.</figcaption>
 </figure>
 
 The major actions the backend API performs include:

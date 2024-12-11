@@ -1,6 +1,6 @@
 ---
 id: challenges
-title: Challenges
+title: 6. Challenges
 sidebar_position: 6
 ---
 
@@ -10,7 +10,14 @@ During the development and deployment phases of Tumbleweed, our team faced sever
 ## 6.1 Consumer Service Data Consumption
 Although Debezium maintains a source connector which is a good fit for Tumbleweeds use case, it does not provide an appropriate sink connector for microservices on the consumer end. Without a sink connector built into Tumbleweed, anyone who wished to integrate our pipeline into their architecture would be required to extensively alter their consumer codebases, greatly increasing the level of user complexity. They would also be required to find a Kafka client which matched the language of their codebase, before they could even implement message consumption. In addition, the consumer would also have to implement error handling and more complex message processing. Finally, this would require public access to the Kafka cluster containers which would be an increased security risk.
 
-It seemed logical for Tumbleweed to create a custom sink connector for our pipeline. After researching, we found KafkaJS, a Node.JS Kafka client. This allowed us to integrate Kafka communication into our architecture. KafkaJS was used to create the connection between Kafka and the consumers, monitoring topics specified by the user and streaming incoming messages to a provided Tumbleweed endpoint via Server Sent Events (SSE). SSE creates a unidirectional long-lived HTTP connection from server to client, allowing us to push messages to consumers in real time, which is ideal for the goals of our application. In order for a consumer service to receive these messages, only a small amount of code is required in their codebase, and this can be written in any language that supports SSE.
+It seemed logical for Tumbleweed to create a custom sink connector for our pipeline. After researching, we found KafkaJS, a Node.JS Kafka client. This allowed us to integrate Kafka communication into our architecture. KafkaJS was used to create the connection between Kafka and the consumers, monitoring topics specified by the user and streaming incoming messages to a provided Tumbleweed endpoint via Server Sent Events (SSE). 
+
+<figure>
+  <img src="/img/sse.svg" className="Server Sent Events" alt="Server Sent Events" width="80%"/>
+  <figcaption>Figure 1: Server Sent Events.</figcaption>
+</figure>
+
+SSE creates a unidirectional long-lived HTTP connection from server to client, allowing us to push messages to consumers in real time, which is ideal for the goals of our application. In order for a consumer service to receive these messages, only a small amount of code is required in their codebase, and this can be written in any language that supports SSE.
 
 Two other options we explored were the use of websockets or polling. Websockets are a communication protocol that allow for real-time, bi-directional communication between a client and a server. The connection between client and server is persistent; once the connection is established, data can be transmitted between the client and server in real time. While the real-time communication capabilities of websockets suited our needs, we did not need bi-directional communication. 
 

@@ -8,7 +8,7 @@ const Section1 = () => {
         <h1 className="text-[#331e14] text-left text-4xl md:text-[44px] font-medium tracking-tight leading-tight md:leading-[52px] mt-0">
           Easy to setup and teardown
         </h1>
-        <p className="text-gray-600 text-2xl tracking-wide mt-6 mb-2 text-left font-normal">
+        <p className="text-[#331e14] text-2xl tracking-wide mt-6 mb-2 text-left font-normal max-w-[1200px]">
           Without requiring in-depth technical knowledge, pipelines, sources, and topics can be
           created or deleted using Tumbleweed's intuitive UI
         </p>

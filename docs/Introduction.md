@@ -1,6 +1,6 @@
 ---
 id: introduction
-sidebar_label: Introduction
+sidebar_label: 1. Introduction
 sidebar_position: 1
 ---
 

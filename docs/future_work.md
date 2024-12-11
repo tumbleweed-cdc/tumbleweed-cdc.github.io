@@ -1,6 +1,6 @@
 ---
 id: future_work
-title: Future Work
+title: 7. Future Work
 sidebar_position: 7
 ---
 
@@ -16,7 +16,10 @@ We considered adding an additional whitelist feature for this, but realized that
 
 As a potential solution to this security flaw, we would implement JWT (JSON Web Token) authentication. A JWT is a compact, URL-safe, self-contained way for securely transmitting information between parties as a JSON object[^1]. When a user logs in, Tumbleweed would generate a JWT containing claims, such as the user's identity. This token is sent to the client, and included in subsequent requests, allowing the server to verify the user’s identity without maintaining session state. JWT would allow secure and stateless user authentication, ensuring that only authorized users can log in and interact with a Tumbleweed pipeline instance.
 
-** insert diagram here
+<figure>
+  <img src="/img/jwt.svg" className="JWT Token" alt="JWT Token" width="80%"/>
+  <figcaption>Figure 1: JWT authorization cycle.</figcaption>
+</figure>
 
 Together, these features would provide additional layers of protection for Tumbleweed users and their data, aligning the application with modern security standards.
 
@@ -30,7 +33,10 @@ Adding support for other databases would also present new technical challenges, 
 ## 7.3 Topic Filtering/Transformation
 Currently, consumers receive all data passing through the pipeline based on the topics they are subscribed to. In future implementations, we could aim to introduce the ability for users to filter data dynamically based on a set of criteria, such as by types/sub-topics or various attributes of the payload. This feature would give users the power to tailor the data streams they consume, ensuring that only the most relevant data is captured by their consumers.
 
-** insert diagram here
+<figure>
+  <img src="/img/topic_filtering.svg" className="Topic Filtering" alt="Topic Filtering" width="80%"/>
+  <figcaption>Figure 2: Topic filtering.</figcaption>
+</figure>
 
 To achieve this, we would implement a filtering layer that operates on the pipeline’s outgoing data stream. Users could define filtering rules through the provided Tumbleweed UI, which would then be applied before the data is sent to the subscribed consumers. By doing this, not only would the volume of data being processed by downstream services be decreased, but the overall performance and system efficiency would be improved by minimizing network and compute overhead.
 
