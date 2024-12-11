@@ -3,12 +3,12 @@ const Team = () => {
   return (
     <section className="sectionB" id="team">
       <article className="max-w-6xl mx-auto flex flex-col justify-center gap-8 py-20 px-6">
-        <h2 className="lp-para text-center text-3xl tracking-wide font-semibold text-gray-600mb-2">Team Tumbleweed</h2>
+        <h2 className="lp-para text-center text-5xl tracking-wide font-bold text-[#331e14] mb-6">Team Tumbleweed</h2>
         <div className="flex flex-col md:flex-row gap-2 md:gap-8 mx-auto">
           <Member
             name="Cruz Hernandez"
             image="/img/team/cruzbw.png"
-            location="Reno, NV"
+            location="Sparks, NV"
             personalWebsite=""
             github="https://github.com/archzedzenrun"
             linkedin="https://www.linkedin.com/in/cruz-hernandez-968778314/"

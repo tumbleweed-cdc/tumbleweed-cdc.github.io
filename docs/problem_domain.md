@@ -42,14 +42,14 @@ A dual-write may occur when data needs to be written to different systems. For e
 This process of writing changes to separate systems is where problems can arise and create data inconsistencies between services. If the data successfully writes to the source database but fails to be sent to a message broker due to some kind of application or network issue, the source database will have a record of the change even if the destination never receives it.
 
 <figure>
-  <img src="/img/event_streaming.svg" className="Dual Write Problem 1" alt="Dual Write Problem 1" width="80%"/>
+  <img src="/img/Dual-write_1.png" className="Dual Write Problem 1" alt="Dual Write Problem 1" width="80%"/>
   <figcaption>Figure 3: Fails to write to the message broker.</figcaption>
 </figure>
 
 On the other hand, if the data was successfully written to a message broker, but failed to write to the source database, the destination service received the message but the source database has no record of it. Either scenario can result in errors or data inconsistencies, complicating operations between services.
 
 <figure>
-  <img src="/img/dual-write_2.svg" className="Dual Write Problem 2" alt="Dual Write Problem 2" width="80%"/>
+  <img src="/img/Dual-write_2.png" className="Dual Write Problem 2" alt="Dual Write Problem 2" width="80%"/>
   <figcaption>Figure 4: Fails to write to the source database.</figcaption>
 </figure>
 
@@ -96,11 +96,16 @@ As we will explore in the following section, a simpler, more efficient, and intu
 
 Change Data Capture (CDC) is the process of monitoring a source database, capturing data changes, and propagating those changes to a variety of downstream consumers, which may include other databases, caches, applications, and more. In recent years, CDC has emerged as a leading method for near-real time database change propagation in event streaming contexts. There are three primary CDC methods in common usage: time-based, trigger-based, and log-based. 
 
+<figure>
+  <img src="/img/CDC_general.svg" className="Change Data Capture" alt="Change Data Capture" width="80%"/>
+  <figcaption>Figure 6: Change Data Capture</figcaption>
+</figure>
+
 The time-based CDC approach requires adding a modification timestamp column (e.g. “updated_at”) to each table, then polling those tables at regular intervals to track when rows have been altered. 
 
 <figure>
   <img src="/img/timestamp-based_CDC.svg" className="Timestamp Based CDC" alt="Timestamp Based CDC" width="80%"/>
-  <figcaption>Figure 6: Time-Based CDC</figcaption>
+  <figcaption>Figure 7: Time-Based CDC</figcaption>
 </figure>
 
 While somewhat straightforward to implement, time-based CDC comes with several disadvantages[^11]:
@@ -113,7 +118,7 @@ The trigger-based CDC approach shares similarities with the polling implementati
 
 <figure>
   <img src="/img/Trigger-based_CDC.png" className="Trigger Based CDC" alt="Trigger Based CDC" width="80%"/>
-  <figcaption>Figure 7: Trigger-Based CDC</figcaption>
+  <figcaption>Figure 8: Trigger-Based CDC</figcaption>
 </figure>
 
 While triggers are supported by most databases, this method also comes with several disadvantages, especially as a database grows larger[^12]:
@@ -130,7 +135,7 @@ For applications that need to access data in near-real time, Log-based CDC is th
 
 <figure>
   <img src="/img/log-based-cdc.png" className="Log-Based CDC" alt="Log-Based CDC" width="80%"/>
-  <figcaption>Figure 8: Log-Based CDC</figcaption>
+  <figcaption>Figure 9: Log-Based CDC</figcaption>
 </figure>
 
 Some of the advantages of log-based CDC include[^13]:

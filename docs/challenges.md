@@ -31,6 +31,8 @@ To resolve these issues, we used Amazon ECS Service Discovery to provide DNS hos
 
 A replication slot is a feature in Postgres that provides a robust way to handle data replication between a primary database server and one or more consumers, such as secondary Postgres servers, CDC tools, or other downstream systems[^2]. These replication slots ensure that no data is lost by keeping necessary WAL (Write-Ahead Log) files until all consumers have confirmed they have received that data [^3].  We can minimize performance impact on the database while maintaining consistent data change order by reading from the WAL instead of querying the database directly.
 
+** insert image here
+
 ### The Challenge
 
 The production version of Tumbleweed is meant to be run as a single pipeline instance for a full architecture of services, with a single source connector for each producer service. During the early development stages of Tumbleweed, each member of our team had their own instance of Tumbleweed running, but these individual instances shared the same replication slot on the same AWS RDS source database.
@@ -50,6 +52,8 @@ While this issue was related to development of Tumbleweed, it should not arise i
 ## 6.4 Managing WAL Disk Size Growth in PostgreSQL on AWS RDS
 
 When a replication consumer goes offline, its PostgreSQL replication slot becomes inactive. When this occurs, Postgres will retain all WAL segments after the latest LSN (log sequence number) for unconsumed changes. The LSN is an unsigned 64-bit integer used to determine a position in the WAL[^2]. These segments are small, 16MB by default, but can be configured to larger sizes. Tumbleweed needs to retain WAL segments as it uses Debezium, which relies on the WAL to capture changes. If a consumer goes offline and the WAL segments are not retained, changes made while the consumer is offline will be lost.
+
+** insert image here
 
 During development, we used AWS RDS to spin up a Postgres database to test database connectors and data consumption, and we encountered a challenge with uncontrolled growth in WAL disk size. RDS writes to a heartbeat table in the internal “rdsadmin” database every 5 minutes. Even when the database appears to be idle, this generates traffic. Additionally, in AWS, RDS has increased WAL segments from 16MB to 64MB in size[^5]. Thus these periodic writes to the heartbeat table within the “rdsadmin” database trigger a new WAL segment of 64MB to be created. If the replication slot remains inactive and the LSN doesn't advance, Postgres will continue to retain these segments. This causes the quick consumption of disk space, potentially causing the database to crash.
 
@@ -78,7 +82,10 @@ This deployment model introduced security challenges. Because the users access T
 
 ### Whitelisting IPs for Controlled Access to Pipeline UI
 
-** insert diagram here
+<figure>
+  <img src="/img/whitelist_ips.svg" className="Whitelist ips" alt="Whitelist ips" width="80%"/>
+  <figcaption>Figure 2: Whitelisting IP's to controll access.</figcaption>
+</figure>
 
 During Tumbleweed’s installation, the user is prompted to provide a list of IP addresses to whitelist. These IP addresses are stored in a Terraform variable, which is then used to configure an ECS security group, granting controlled access to the application. This is done through creating inbound rules that allow traffic only from the specified IP addresses. By doing this, we ensure that access to the application is tightly controlled and limited to trusted resources.
 

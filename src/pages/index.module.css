@@ -40,5 +40,5 @@
 
 .buttons {
   display: flex;
-  justify-content: flex-start; /* Align the button to the left */
+  justify-content: left; /* Align the button to the left */
 }
