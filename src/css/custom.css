@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body,
-a,
-a:hover {
+* {
   cursor: url("../../static/img/cactus_cursor.png"), auto;
 }
 
@@ -1062,9 +1060,3 @@ div.admonitionHeading_Gvgb {
   border-radius: 25px;
   box-shadow: 0 0 20px #AA8976;
 }
-
-/* @media (max-width: 996px) {
-  .col {
-    margin-left: 10px;
-  }
-} */

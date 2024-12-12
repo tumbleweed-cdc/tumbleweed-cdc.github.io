@@ -39,7 +39,7 @@ const Team = () => {
             name="Esther Kim"
             title="Software Engineer"
             image="/img/team/esther_headshot_dusty.png"
-            location="Queens, NY"
+            location="New York, NY"
             personalWebsite=""
             github="https://github.com/ekim1009"
             linkedin="https://www.linkedin.com/in/esther-kim-189787b0/"
