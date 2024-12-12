@@ -13,13 +13,13 @@ const Team = () => {
             personalWebsite=""
             github="https://github.com/archzedzenrun"
             linkedin="https://www.linkedin.com/in/cruz-hernandez-968778314/"
-            email="archzedzenrun@gmail.com"
+            email="cmhernandezdev@gmail.com"
           />
           <Member
             name="Nick Perry"
             title="Software Engineer"
             image="/img/team/nick_headshot_dusty.png"
-            location="Abbotsford, BC"
+            location="Vancouver, BC"
             personalWebsite=""
             github="https://github.com/nickperry12"
             linkedin="https://www.linkedin.com/in/nick-perry-9b86b2318/"
@@ -33,7 +33,7 @@ const Team = () => {
             personalWebsite=""
             github="https://github.com/jeffbbz"
             linkedin="https://www.linkedin.com/in/paco-michelson-29702b1b5/"
-            email="tfpaco@gmail.com"
+            email="paco.michelson@gmail.com"
           />
           <Member
             name="Esther Kim"
@@ -43,7 +43,7 @@ const Team = () => {
             personalWebsite=""
             github="https://github.com/ekim1009"
             linkedin="https://www.linkedin.com/in/esther-kim-189787b0/"
-            email="ekim1009@gmail.com"
+            email="esther.kim0910@gmail.com"
           />
         </div>
       </article>
