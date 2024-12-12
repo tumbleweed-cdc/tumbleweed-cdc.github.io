@@ -82,7 +82,7 @@ Tumbleweed was created with the goal of being user-friendly. In order to achieve
 The major actions the backend API performs include:
 - **Outbox and heartbeat table creation**: When a source connector is added for a source database, the TBA creates an outbox and a heartbeat table in that database. The heartbeat table emits a message every few minutes to prevent a replication slot from becoming inactive, which can cause undesired WAL-segment accumulation.
 - **Source connector configuration**: Allows for creation and deletion of Debezium PostgreSQL connector instances, with auto-configuration for proper function in the Tumbleweed pipeline.
-- **Communication with Kafka**: The TBA utilizes the Node.JS Kafka client KafkaJS to Communicate with the Kafka cluster containers to create, retrieve, and delete Kafka topics and fetch additional useful topic and message metadata.
+- **Communication with Kafka**: The TBA utilizes the Node.JS Kafka client KafkaJS to communicate with the Kafka cluster containers to create, retrieve, and delete Kafka topics and fetch additional useful topic and message metadata.
 - **Consumer creation and management**: Allows for the creation and deletion of consumers which can subscribe to topics. Created consumers are provided a custom Tumbleweed Endpoint URL to implement message stream access.
 - **Consumer Data sink connectors**: Creates custom-built sink connectors which receive data from Kafka and streams it to the appropriate consumers via SSE (Server Sent Events).
 - **User Interface**: TBA serves a front end UI for easy pipeline configuration and management.
