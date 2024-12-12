@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  cursor: url("../../static/img/cactus_cursor.png"), auto;
-}
+/* * {
+  cursor: url("../../static/img/cactus_cursor3.png"), auto !important;
+} */
 
 :root {
   --ifm-color-primary: #70AF85;
@@ -93,10 +93,10 @@ video {
 
 .navbar__item {
   font-family: 'Koulen', sans-serif;
-  font-weight: bold;
+  font-weight: normal;
   color: #F58B33;
   letter-spacing: 0.7px;
-  text-shadow: #331E14 0.4px 0.4px 0.5px;
+  text-shadow: #331E14 0.04px 0.04px 0.05px;
   font-size: 1.4rem;
 }
 
@@ -803,7 +803,7 @@ a[class*='footerLogoLink'] {
 }
 
 .hero__title {
-  font-size: 5rem;
+  font-size: 8rem;
   /* Default size for larger screens */
   color: #5daa77;
   text-shadow: #331E14 1px 1px 1px;

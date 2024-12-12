@@ -12,7 +12,7 @@ const Section0 = () => {
         />
       </div>
       <div className="text-center md:w-[60%]">
-        <h1 className="text-[#331e14] text-4xl md:text-[44px] font-medium tracking-tight leading-tight md:leading-[52px] mt-0 text-right">
+        <h1 className="text-[#331e14] text-4xl md:text-[4rem] font-medium tracking-tight leading-tight md:leading-[52px] mt-0 text-right">
           Change Data Capture
         </h1>
         <p className="text-[#331e14] text-2xl tracking-wide mt-6 mb-2 text-right font-normal pl-[150px]">
@@ -27,7 +27,7 @@ const Section1 = () => {
   return (
     <div className="max-w-full mx-auto flex flex-wrap md:flex-nowrap justify-start py-8 gap-5 2xl:px-48 lg:py-20 px-8 items-center">
       <div className="text-center py-0">
-        <h1 className="text-[#331e14] text-left text-4xl md:text-[44px] font-medium tracking-tight leading-tight md:leading-[52px] mt-0">
+        <h1 className="text-[#331e14] text-left text-4xl md:text-[4rem] font-medium tracking-tight leading-tight md:leading-[52px] mt-0">
           Automated Deployment
         </h1>
         <p className="text-[#331e14] text-2xl tracking-wide mt-6 mb-2 text-left font-normal max-w-[1200px] pr-[200px]">
@@ -56,7 +56,7 @@ const Section2 = () => {
         />
       </div>
       <div className="text-center md:w-[60%]">
-        <h1 className="text-[#331e14] text-4xl md:text-[44px] font-medium tracking-tight leading-tight md:leading-[52px] mt-0 text-right">
+        <h1 className="text-[#331e14] text-4xl md:text-[4rem] font-medium tracking-tight leading-tight md:leading-[52px] mt-0 text-right">
           End-to-end pipeline
         </h1>
         <p className="text-[#331e14] text-2xl tracking-wide mt-6 mb-2 text-right font-normal pl-[50px]">
@@ -71,7 +71,7 @@ const Section3 = () => {
   return (
     <div className="max-w-full mx-auto flex flex-wrap md:flex-nowrap justify-start py-8 gap-5 2xl:px-48 lg:py-20 px-8 items-center">
       <div className="text-center py-0">
-        <h1 className="text-[#331e14] text-left text-4xl md:text-[44px] font-medium tracking-tight leading-tight md:leading-[52px] mt-0">
+        <h1 className="text-[#331e14] text-left text-4xl md:text-[4rem] font-medium tracking-tight leading-tight md:leading-[52px] mt-0">
           Intuitive UI
         </h1>
         <p className="text-[#331e14] text-2xl tracking-wide mt-6 mb-2 text-left font-normal pr-[80px]">
