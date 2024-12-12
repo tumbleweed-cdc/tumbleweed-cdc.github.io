@@ -220,7 +220,7 @@ video {
   --tw-contain-style: ;
 }
 
-.container {
+.tw-container {
   width: 100%;
   max-width: 1200px;
   /* Constrain maximum width */
@@ -1013,6 +1013,7 @@ figcaption {
 
 div.theme-doc-markdown.markdown p {
   font-size: 1.125rem;
+
 }
 
 ul.table-of-contents {
@@ -1061,3 +1062,9 @@ div.admonitionHeading_Gvgb {
   border-radius: 25px;
   box-shadow: 0 0 20px #AA8976;
 }
+
+/* @media (max-width: 996px) {
+  .col {
+    margin-left: 10px;
+  }
+} */

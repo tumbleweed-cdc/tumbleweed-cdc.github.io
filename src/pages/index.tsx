@@ -15,7 +15,7 @@ function HomepageHeader() {
     className="bg-gradient-to-r from-[#fec459] to-[#fce197] flex flex-col justify-center sm:flex-col p-0 items-center gap-8 scroll-mt-40 h-[600px]"
     >
       <header className={clsx( styles.heroBanner, "w-full h-full relative")}>
-        <div className="container relative z-10">
+        <div className="tw-container relative z-10">
           <h1 className="hero__title">
             Tumbleweed
           </h1>
