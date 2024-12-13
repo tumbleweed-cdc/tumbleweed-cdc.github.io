@@ -13,7 +13,7 @@
   height: 50px;
   background-image: url("../../static/img/actual_tumbleweed2.png");
   background-size: cover;
-  animation: tumbleweed-animation 15s linear infinite;
+  animation: tumbleweed-animation 18s linear infinite;
 }
 
 @keyframes tumbleweed-animation {
