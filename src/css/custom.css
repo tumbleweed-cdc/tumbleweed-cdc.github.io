@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+.cactus {
+ height: 32px;
+ width: 32px;
+}
+
+.desert {
+  /* position: fixed; */
+}
+
 :root {
   --ifm-color-primary: #70AF85;
   --ifm-color-primary-dark: #29784c;

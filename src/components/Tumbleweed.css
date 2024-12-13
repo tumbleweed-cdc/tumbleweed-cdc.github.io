@@ -7,7 +7,7 @@
   height: 50px;
   background-image: url("../../static/img/actual_tumbleweed2.png");
   background-size: cover;
-  animation: tumbleweed-animation 12s linear infinite;
+  animation: tumbleweed-animation 15s linear infinite;
 }
 
 @keyframes tumbleweed-animation {
@@ -48,13 +48,13 @@
     transform: translateX(90vw) translateY(2px) rotate(2061deg);
   }
   60% {
-    transform: translateX(80vw) translateY(-20px) rotate(1832deg);
+    transform: translateX(80vw) translateY(-10px) rotate(1832deg);
   }
   65% {
     transform: translateX(70vw) translateY(2px) rotate(1603deg);
   }
   70% {
-    transform: translateX(60vw) translateY(-15px) rotate(1374deg);
+    transform: translateX(60vw) translateY(-10px) rotate(1374deg);
   }
   75% {
     transform: translateX(50vw) translateY(2px) rotate(1145deg);

@@ -51,8 +51,8 @@ const Team = () => {
         </div>
         {/* <img className="cactus" src="../../img/cactus_cursor2.png"/> */}
       </article>
-   
         <Tumbleweed />
+   
    
     </section>
     
