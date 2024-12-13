@@ -13,7 +13,7 @@ There are several enterprise solutions which implement CDC systems for microserv
 Although CDC can be used for implementation of the outbox pattern, most enterprise CDC solutions focus on traditional source-to-sink replication between data stores and have not often been designed for the specific use case of data syncing between microservices. 
 
 :::note What is a sink?
-CDC terminology uses the term 'sink' to describe the destination to which data is transferred from a given source. Sinks can vary, but in CDC pipeline contexts are typically large data stores (data warehouses, data lakes), caches, or other databases that the source data should update in some manner. For example, a common CDC pattern is capturing data from a relational database and transforming ingestion to a large data store for use in analytics.
+CDC terminology uses the term “sink” to describe the destination to which data is transferred from a given source. Sinks can vary, but in CDC pipeline contexts are typically data warehouses (e.g. Snowflake), data lakes (e.g. Amazon S3), caches (e.g. Redis), or other databases that the source data should update in some manner. For example, a common CDC pattern would be capturing data from a relational database like PostgreSQL and transforming it for ingestion to a large data store like Snowflake for use in analytics.
 :::
 
 However, there are several solutions, such as  Confluent[^1] and Striim[^2], which do provide managed CDC for this case. Such solutions typically function well, however, they come with tradeoffs. These services are expensive and require recurring costs. Additionally, allowing the pipeline to be hosted by a managed service leads to decreased data privacy and less control over infrastructure.
