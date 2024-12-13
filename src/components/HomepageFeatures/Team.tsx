@@ -1,6 +1,9 @@
+
+import Tumbleweed from "../Tumbleweed";
 import Member from "./Member";
 const Team = () => {
   return (
+    <>
     <section className="sectionB bg-gradient-to-t from-[#fec459] to-[#fce197]" id="team">
       <article className="max-w-6xl mx-auto flex flex-col justify-center gap-8 py-20 px-6">
         <h2 className="lp-para text-center text-5xl tracking-wide font-bold text-[#331e14] mb-6">Team Tumbleweed</h2>
@@ -46,8 +49,14 @@ const Team = () => {
             email="esther.kim0910@gmail.com"
           />
         </div>
+        {/* <img className="cactus" src="../../img/cactus_cursor2.png"/> */}
       </article>
+   
+        <Tumbleweed />
+   
     </section>
+    
+    </>
   );
 };
 
