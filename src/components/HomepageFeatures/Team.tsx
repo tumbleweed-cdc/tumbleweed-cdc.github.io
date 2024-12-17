@@ -11,7 +11,7 @@ const Team = () => {
           <Member
             name="Cruz Hernandez"
             title="Software Engineer"
-            image="/img/team/cruzdusty.png"
+            image="/img/team/dusty_headshots/cruz_dusty.jpg"
             location="Reno, NV"
             personalWebsite=""
             github="https://github.com/archzedzenrun"
@@ -21,7 +21,7 @@ const Team = () => {
           <Member
             name="Nick Perry"
             title="Software Engineer"
-            image="/img/team/nick_headshot_dusty.png"
+            image="/img/team/dusty_headshots/nick_dusty.jpg"
             location="Vancouver, Canada"
             personalWebsite=""
             github="https://github.com/nickperry12"
@@ -31,7 +31,7 @@ const Team = () => {
           <Member
             name="Paco Michelson"
             title="Software Engineer"
-            image="/img/team/paco_dusty.png"
+            image="/img/team/dusty_headshots/paco_dusty.jpg"
             location="Fort Wayne, IN"
             personalWebsite=""
             github="https://github.com/jeffbbz"
@@ -41,7 +41,7 @@ const Team = () => {
           <Member
             name="Esther Kim"
             title="Software Engineer"
-            image="/img/team/esther_headshot_dusty.png"
+            image="/img/team/dusty_headshots/esther_dusty.jpg"
             location="Queens, NY"
             personalWebsite=""
             github="https://github.com/ekim1009"
