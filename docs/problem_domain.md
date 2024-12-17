@@ -24,7 +24,7 @@ One solution for this problem is the use of Event Driven Architecture (EDA). In 
 
 ## 2.2 Event Stream Processing and Message Brokers
 
-In event stream processing, an event is a record or "...a small, self-contained, immutable object containing the details of something that happened at some point in time..."[^6] and an event stream is therefore an "unbounded, incrementally processed [^6]" stream of such data. Many event stream processing frameworks can also be described as asynchronous message-passing systems or message brokers [^6]. Generally speaking, message brokers allow producing processes to send messages or records to a topic or queue, then the broker facilitates the delivery of that data to subscribed consumers.
+In event stream processing, an event is a record or "...a small, self-contained, immutable object containing the details of something that happened at some point in time..." [^6] and an event stream is therefore an "unbounded, incrementally processed" [^6] stream of such data. Many event stream processing frameworks can also be described as asynchronous message-passing systems or message brokers [^6]. Generally speaking, message brokers allow producing processes to send messages or records to a topic or queue, then the broker facilitates the delivery of that data to subscribed consumers.
 
 <figure>
   <img src="/img/event_streaming.png" className="event streaming" alt="Event Stream Processing" width="80%"/>
