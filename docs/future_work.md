@@ -28,7 +28,7 @@ In its current implementation, Tumbleweed supports creating connectors exclusive
 
 Future versions of Tumbleweed could aim to include support for additional databases such as MongoDB or MySQL. By expanding database compatibility, we can cater to organizations with varied tech stacks, making Tumbleweed a more versatile solution for microservice data sync pipelines. Supporting multiple database technologies would also position Tumbleweed as a more comprehensive solution in a competitive landscape.
 
-Adding support for other databases would also present new technical challenges, such as integrating with different replication mechanisms (e.g., MySQL’a binlog or MongoDB’s oplog) or handling schema-less databases like MongoDB.
+Adding support for other databases would also present new technical challenges, such as integrating with different replication mechanisms (e.g., MySQL's binlog or MongoDB's oplog) or handling schema-less databases like MongoDB.
 
 ## 7.3 Topic Filtering/Transformation
 Currently, consumers receive all data passing through the pipeline based on the topics they are subscribed to. In future implementations, we could aim to introduce the ability for users to filter data dynamically based on a set of criteria, such as by types/sub-topics or various attributes of the payload. This feature would give users the power to tailor the data streams they consume, ensuring that only the most relevant data is captured by their consumers.
