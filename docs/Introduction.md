@@ -16,4 +16,4 @@ Tumbleweed auto-deploys a self-hosted log-based Change Data Capture pipeline whi
 
 Tumbleweed’s implementation of the outbox pattern allows for the necessary decoupling of microservices in a distributed architecture. A web user interface provides further ease of use in configuration, allowing Tumbleweed users to deploy it quickly to their microservice architecture with minimal knowledge of the underlying technologies.
 
-In this case study, we will discuss the technologies that make a framework like Tumbleweed possible. We will also explore some development challenges and potential future implementations for the framework.
+In this case study, we will provide an overview of the problem domain, design patterns, and the technologies that make a framework like Tumbleweed possible. We will also explore some development challenges and potential future implementations for the framework.

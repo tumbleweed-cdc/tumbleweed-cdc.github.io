@@ -8,7 +8,6 @@ const Section0 = () => {
         <img
           src="/img/outbox_pattern.png"
           alt="Change Data Capture using the outbox pattern"
-        // className="align-top object-contain rounded shadow-[0_0_10px_grey] dark:shadow-none"
         />
       </div>
       <div className="text-center md:w-[60%]">
@@ -52,7 +51,6 @@ const Section2 = () => {
         <img
           src="/img/tumbleweed_simplified_architecture.png"
           alt="Producer Consumer Image"
-        // className="align-top object-contain rounded shadow-[0_0_10px_grey] dark:shadow-none"
         />
       </div>
       <div className="text-center md:w-[60%]">

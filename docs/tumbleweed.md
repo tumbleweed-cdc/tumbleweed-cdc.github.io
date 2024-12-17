@@ -8,7 +8,7 @@ sidebar_position: 4
 Considering the trade-offs associated with enterprise CDC solutions and the complexity of building a DIY alternative, Tumbleweed recognized a gap in the available options for an end-to-end log-based CDC implementation of the outbox pattern.
 
 <figure>
-  <img src="/img/comparison_chart.svg" className="Comparison Chart" alt="Comparison Chart" width="60%"/>
+  <img src="/img/comparison_chart.png" className="Comparison Chart" alt="Comparison Chart" width="60%"/>
   <figcaption>Figure 1: Comparison Chart.</figcaption>
 </figure>
 
@@ -33,20 +33,20 @@ In order to understand how Tumbleweed functions, it's necessary to examine some 
 
 A key element of an event driven architecture for decoupled microservices is a message broker or event stream processing platform. Such a platform must reliably ingest large volumes of data from source services and stream it to consumer services. Such a platform is not a trivial technology, especially when built for scalability. Thus we needed to find something battle-tested and heavy-duty. We looked at several open-source options, such as Apache Flink and Apache Pulsar, but found that Apache Kafka was the one that most fit our needs. Kafka has a wide user base, including both large enterprises and smaller scale DIY project users. Because of this, there are many online resources for understanding and using Kafka in a variety of stream processing contexts. Most importantly, a number of robust open-source CDC technologies such as Debezium and Kafka Connect have strong support for Kafka use cases.
 
-Kafka is a distributed, log-based message broker designed for massive real-time data streaming. Kafka centralizes data transmission with a cluster of brokers and their controllers, allowing greater fault tolerance and data durability[^1]. Producer services send records to the brokers and Kafka appends these records to various write-ahead log "topics". Consumer services then subscribe to specific "topics" in order to get the data that they need. [^2] A producer can produce one or many topics regardless of available consumers, and a consumer can subscribe to one or many topics from one or more producers. This approach allows for decoupling of producer and consumer services.
+Kafka is a distributed, log-based message broker designed for massive real-time data streaming. Kafka centralizes data transmission with a cluster of brokers and their controllers, allowing greater fault tolerance and data durability [^1]. Producer services send records to the brokers and Kafka appends these records to various write-ahead log "topics". Consumer services then subscribe to specific "topics" in order to get the data that they need [^2]. A producer can produce one or many topics regardless of available consumers, and a consumer can subscribe to one or many topics from one or more producers. This approach allows for decoupling of producer and consumer services.
 
 <figure>
   <img src="/img/kafka.png" className="Kafka Cluster" alt="Kafka Cluster" width="80%"/>
   <figcaption>Figure 3: Kafka cluster.</figcaption>
 </figure>
 
-Kafka is the backbone of Tumbleweed. We use a multi-node Kafka cluster for fault tolerance and high throughput. Although Kafka configuration and set-up can be complicated, once configured, Kafka abstracts away much of the complexities of stream processing and message brokering. Many enterprise solutions and large companies also rely on Kafka for their services; LinkedIn leverages Kafka to process upwards of 7 trillion messages per day. [^3]
+Kafka is the backbone of Tumbleweed. We use a multi-node Kafka cluster for fault tolerance and high throughput. Although Kafka configuration and set-up can be complicated, once configured, Kafka abstracts away much of the complexities of stream processing and message brokering. Many enterprise solutions and large companies also rely on Kafka for their services; LinkedIn leverages Kafka to process upwards of 7 trillion messages per day [^3]. 
 
 ### 4.2.3 Kafka Connect and Debezium
 
 While Kafka solved much of our data streaming needs, we needed a way to get the data from producer services to Kafka itself. This is where Kafka Connect and Debezium came into play.
 
-Kafka Connect allows for transmission between Kafka and external systems via self-built or predefined connectors: Source connectors can ingest data from external producer systems into Kafka topics and sink connectors can output the data from Kafka topics to the external consumer systems subscribed to those topics[^4]. 
+Kafka Connect allows for transmission between Kafka and external systems via self-built or predefined connectors: Source connectors can ingest data from external producer systems into Kafka topics and sink connectors can output the data from Kafka topics to the external consumer systems subscribed to those topics [^4]. 
 
 <figure>
   <img src="/img/kafka_connect_debezium.png" className="Connect and Debezium" alt="Connect and Debezium" width="80%"/>
@@ -61,14 +61,14 @@ Thus, Tumbleweed uses a Kafka Connect instance with Debezium PostgreSQL source c
 
 ### 4.2.4 Apicurio Schema Registry
 
-One reason Kafka transfers data so efficiently is that it does not perform any data verification on its own, but rather follows the “Zero Copy Principle”, merely transferring data in byte format[^5]. Thus data must be serialized by producers for transmission and de-serialized either by the sink connector or the consumer. Because Kafka does not perform data validation, a producer could send data in a format which the data de-serializing agent would be unable to handle, which would cause downstream applications and sink connectors to break.
+One reason Kafka transfers data so efficiently is that it does not perform any data verification on its own, but rather follows the “Zero Copy Principle”, merely transferring data in byte format [^5]. Thus data must be serialized by producers for transmission and de-serialized either by the sink connector or the consumer. Because Kafka does not perform data validation, a producer could send data in a format which the data de-serializing agent would be unable to handle, which would cause downstream applications and sink connectors to break.
 
 <figure>
   <img src="/img/apicurio.png" className="Apicurio" alt="Apicurio" width="80%"/>
   <figcaption>Figure 5: Apicurio Schema Registry.</figcaption>
 </figure>
 
-This issue can be alleviated by enforcing the use of specific data formats (e.g. JSON, AVRO, Protobuf) and a data schema (message structure in a given format). However, doing so requires including lengthy schema data in each message passed. A better approach is to add a schema registry. A schema registry is a process external to Kafka which stores and manages the schemas used in a Kafka cluster, requiring messages to only reference a schema ID. Schema registries also allow for schemas to evolve in a centralized manner.[^6] Tumbleweed uses the open-source Apicurio Schema Registry with JSON Schema for messages passed between Debezium and the Tumbleweed Backend API. 
+This issue can be alleviated by enforcing the use of specific data formats (e.g. JSON, AVRO, Protobuf) and a data schema (message structure in a given format). However, doing so requires including lengthy schema data in each message passed. A better approach is to add a schema registry. A schema registry is a process external to Kafka which stores and manages the schemas used in a Kafka cluster, requiring messages to only reference a schema ID. Schema registries also allow for schemas to evolve in a centralized manner [^6]. Tumbleweed uses the open-source Apicurio Schema Registry with JSON Schema for messages passed between Debezium and the Tumbleweed Backend API. 
 
 ### 4.2.5 Tumbleweed Backend API (TBA)
 

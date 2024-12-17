@@ -14,7 +14,7 @@ More importantly, although access to the UI is limited, we were unable to fully 
 
 We considered adding an additional whitelist feature for this, but realized that consumer IP addresses are more likely to change frequently. 
 
-As a potential solution to this security flaw, we would implement JWT (JSON Web Token) authentication. A JWT is a compact, URL-safe, self-contained way for securely transmitting information between parties as a JSON object[^1]. When a user logs in, Tumbleweed would generate a JWT containing claims, such as the user's identity. This token is sent to the client, and included in subsequent requests, allowing the server to verify the user’s identity without maintaining session state. JWT would allow secure and stateless user authentication, ensuring that only authorized users can log in and interact with a Tumbleweed pipeline instance.
+As a potential solution to this security flaw, we would implement JWT (JSON Web Token) authentication. A JWT is a compact, URL-safe, self-contained way for securely transmitting information between parties as a JSON object [^1]. When a user logs in, Tumbleweed would generate a JWT containing claims, such as the user's identity. This token is sent to the client, and included in subsequent requests, allowing the server to verify the user’s identity without maintaining session state. JWT would allow secure and stateless user authentication, ensuring that only authorized users can log in and interact with a Tumbleweed pipeline instance.
 
 <figure>
   <img src="/img/jwt.svg" className="JWT Token" alt="JWT Token" width="80%"/>

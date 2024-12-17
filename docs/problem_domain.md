@@ -15,23 +15,23 @@ Microservice architectures have become a prominent solution to the difficulties 
   <figcaption>Figure 1: Monolithic vs. Microservice architectures.</figcaption>
 </figure>
 
-The flexibility and scalability of a distributed architecture introduces additional challenges, particularly in the realm of inter-service communication and data exchange. A good microservice architecture involves the decoupling of services from each other. In other words, services should be as autonomous as possible, with few external dependencies [^1]. It is precisely this autonomy and loose coupling between services that provides much of the benefit of microservice architectures: allowing for services to fail and/or change in isolation, scale as needed, and more.
+The flexibility and scalability of a distributed architecture introduces additional challenges, particularly in the realm of inter-service communication and data exchange. A good microservice architecture involves the decoupling of services from each other. In other words, services should be as autonomous as possible, with few external dependencies [^1].  It is precisely this autonomy and loose coupling between services that provides much of the benefit of microservice architectures: allowing for services to fail and/or change in isolation, scale as needed, and more.
 
-Perhaps the greatest challenge [^2] then becomes how to exchange data between services under famously unreliable and complex circumstances[^3], while maintaining this autonomy and decoupling. Services that need to interact are required to update both their own data and propagate this data and/or send notification of the data changes to other services. While this can be done via some manner of synchronous point-to-point API (ex. REST, RPC) between services, such an approach would require the services to be aware of each other to a degree that creates more coupling than is ideal in microservice architectures. Such tight coupling can lead to issues in a variety of ways, such as when a service becomes unavailable, when implementing new services, or when refactoring existing services.[^4] Additionally, if data is propagated in a synchronous manner, this can become a blocking bottleneck with cascading effects throughout the system.
+Perhaps the greatest challenge then becomes how to exchange data between services under famously unreliable and complex circumstances, while maintaining this autonomy and decoupling [^2] [^3]. Services that need to interact are required to update both their own data and propagate this data and/or send notification of the data changes to other services. While this can be done via some manner of synchronous point-to-point API (ex. REST, RPC) between services, such an approach would require the services to be aware of each other to a degree that creates more coupling than is ideal in microservice architectures. Such tight coupling can lead to issues in a variety of ways, such as when a service becomes unavailable, when implementing new services, or when refactoring existing services [^4]. Additionally, if data is propagated in a synchronous manner, this can become a blocking bottleneck with cascading effects throughout the system.
 
-One solution for this problem is the use of Event Driven Architecture (EDA). In EDA, any “state changes” in a service can also be viewed as events, and records of such events can be sent as messages to be consumed by other services.[^5] Services that need to communicate assume the role of event producers and/or event consumers. We can further enhance the strong decoupling of this approach by introducing an event stream processing platform to receive data from producers and propagate them to downstream consumers.
+One solution for this problem is the use of Event Driven Architecture (EDA). In EDA, any “state changes” in a service can also be viewed as events, and records of such events can be sent as messages to be consumed by other services [^5]. Services that need to communicate assume the role of event producers and/or event consumers. We can further enhance the strong decoupling of this approach by introducing an event stream processing platform to receive data from producers and propagate them to downstream consumers.
 
 
 ## 2.2 Event Stream Processing and Message Brokers
 
-In event stream processing, an event is a record or "...a small, self-contained, immutable object containing the details of something that happened at some point in time..."[^6] and an event stream is therefore an "unbounded, incrementally processed[^6] " stream of such data. Many event stream processing frameworks can also be described as asynchronous message-passing systems or message brokers.[^6] Generally speaking, message brokers allow producing processes to send messages or records to a topic or queue, then the broker facilitates the delivery of that data to subscribed consumers.
+In event stream processing, an event is a record or "...a small, self-contained, immutable object containing the details of something that happened at some point in time..."[^6] and an event stream is therefore an "unbounded, incrementally processed [^6]" stream of such data. Many event stream processing frameworks can also be described as asynchronous message-passing systems or message brokers [^6]. Generally speaking, message brokers allow producing processes to send messages or records to a topic or queue, then the broker facilitates the delivery of that data to subscribed consumers.
 
 <figure>
   <img src="/img/event_streaming.png" className="event streaming" alt="Event Stream Processing" width="80%"/>
   <figcaption>Figure 2: Event Stream Processing.</figcaption>
 </figure>
 
-The use of a message broker has a number of advantages over direct messaging between services. It can act as a buffer for when consumers are unavailable and more easily allows for a single message to be sent to multiple consumers. This approach also promotes greater decoupling between producer and consumer services, allowing microservices to be designed agnostic as to whom the event data is being sent or how it is being consumed. [^7] Consumers,  likewise, subscribe to only the types of events that concern their business logic and receive these events for processing from the streaming platform.
+The use of a message broker has a number of advantages over direct messaging between services. It can act as a buffer for when consumers are unavailable and more easily allows for a single message to be sent to multiple consumers. This approach also promotes greater decoupling between producer and consumer services, allowing microservices to be designed agnostic as to whom the event data is being sent or how it is being consumed [^7]. Consumers,  likewise, subscribe to only the types of events that concern their business logic and receive these events for processing from the streaming platform.
 
 ## 2.3 The Dual-Write Problem
 
@@ -62,32 +62,32 @@ Instead, we could write changes to the source database before pushing messages t
 
 ## 2.4 The Outbox Pattern
 
-The outbox pattern ensures “at-least-once” message delivery by allowing for a single transactional write. Transactions in a database allow multiple actions to be carried out as a single logical operation. When using the transactional outbox pattern, database changes are recorded locally to a specially created “outbox” table within the same transaction as the original operation. External processes then monitor the database for changes to the outbox table, then create and propagate event records of those changes to downstream microservices accordingly. 
+The outbox pattern ensures “at-least-once” message delivery by allowing for a single transactional write [^8]. Transactions in a database allow multiple actions to be carried out as a single logical operation. When using the transactional outbox pattern, database changes are recorded locally to a specially created “outbox” table within the same transaction as the original operation. External processes then monitor the database for changes to the outbox table, then create and propagate event records of those changes to downstream microservices accordingly. 
 
 <figure>
   <img src="/img/outbox_pattern.png" className="Outbox Pattern" alt="Outbox Pattern" width="80%"/>
   <figcaption>Figure 5: The outbox pattern.</figcaption>
 </figure>
 
-Outbox table schemas can vary but typically include the following columns:
+Outbox table schemas can vary but typically include the following columns [^4]:
 - `id`: A unique identifier for each outbox event which can be used by a messaging system for duplicate detection.
 - `aggregatetype`: An event descriptor, often called a topic, which can be used for categorized routing of event records via a messaging system. For example, In an order propagating service, a change to an orders database might have the aggregate type of “orders”.
 - `type`: An event category sub-type, e.g. “order_created” which can be used by an event stream processing framework and/or consumer microservices for filtering purposes or triggering various actions.
 - `payload`: A JSONB object that contains the actual data of the event, e.g. the row-level data change to the orders database.
 - `aggregateid`: An event key which is the ID of the payload and is used for correct ordering of event records in a messaging system.
 
-The outbox pattern is not only an effective solution to the dual-write problem via a single database transaction, but also includes additional safe-guards for database schemas. Since the event record propagation of this pattern relies solely on the structure of the outbox and changes to that table, the entirety of the database schema is never fully exposed to a single endpoint. Each event record contains only the latest insert into the outbox table and these records are only routed to the consumers that require that specific data. 
+The outbox pattern is not only an effective solution to the dual-write problem via a single database transaction, but also includes additional safe-guards for database schemas [^10]. Since the event record propagation of this pattern relies solely on the structure of the outbox and changes to that table, the entirety of the database schema is never fully exposed to a single endpoint. Each event record contains only the latest insert into the outbox table and these records are only routed to the consumers that require that specific data. 
 
-Additionally, as long as the outbox table structure itself remains consistent and insertions are properly handled in the producer service’s code, changes can be made to the service’s database schema without breaking the connection to consumer services or the stream processor. For example, columns in an orders table could be deleted or altered, but as long as the rows continued to be added as the payload to the outbox table, propagated events can still be handled without issue. Without this pattern, If we were propagating event records based on the changes to every table, consumers would be required to maintain knowledge of table schemas and have to update their code accordingly for any changes. As discussed previously, such coupling of consumers and producers is problematic in distributed systems, leading to less resiliency. Any database schema changes would likely lead to breaking changes across the propagation system.
+Additionally, as long as the outbox table structure itself remains consistent and insertions are properly handled in the producer service’s code, changes can be made to the service’s database schema without breaking the connection to consumer services or the stream processor [^10]. For example, columns in an orders table could be deleted or altered, but as long as the rows continue to be added as the payload to the outbox table, propagated events can still be handled without issue. Without this pattern, If we were propagating event records based on the changes to every table, consumers would be required to maintain knowledge of table schemas and have to update their code accordingly for any changes. As discussed previously, such coupling of consumers and producers is problematic in distributed systems, leading to less resiliency. Any database schema changes would likely lead to breaking changes across the propagation system.
 
-:::note Drawbacks of the outbox pattern
-The outbox pattern comes with its own potential drawbacks. Source services now have to write additional statements to insert data to an outbox table, which could have an impact on latency and throughput. In most situations, this likely wouldn’t be noticeable, but may be something to consider if your application is processing large volumes of data. There is also a risk of losing messages or accumulating excess data if the outbox table is not properly managed.
+:::note A drawback of the outbox pattern
+The outbox pattern comes with its own potential drawbacks. The most notable being that source services now have to write additional statements to insert data to an outbox table, which could have an impact on latency and throughput. In most situations, this likely wouldn’t be noticeable, but may be something to consider if your application is processing large volumes of data.
 :::
 
 ### 2.4.1 Implementing the Outbox: Polling vs. CDC
 There are two primary methods for implementing the outbox pattern: Polling and Change Data Capture (CDC). Both methods require creating an outbox table and performing transactional writes to it, along with writes to the other tables that need to be tracked. Both methods also allow for data changes to be passed to a stream processing system or message broker. The difference lies in how the data changes are monitored and propagated to the rest of the system.
 
-When using polling to implement the outbox pattern, background processes query the outbox table for new inserts at a defined interval. When updates are found, outbox entries are marked as processed to avoid duplicate messaging. In such a scenario, the outbox table would need an additional “processed_at” column. These processes will also need error handling and retry logic for when communication with the outbox table fails, ensuring ‘at-least-once’ delivery[^8]. However, this approach can be resource-intensive and add additional load to the database. It can also be difficult to determine the correct polling interval, particularly in high throughput data systems where near-real time information is important[^9]. Perhaps most importantly, this approach can lead to data inconsistency due to missed messages or the inability to guarantee message ordering. If multiple transactions occur in parallel, entry into the outbox table may not be in the same order as the commits[^10].
+When using polling to implement the outbox pattern, background processes query the outbox table for new inserts at a defined interval. When updates are found, outbox entries are marked as processed to avoid duplicate messaging. In such a scenario, the outbox table would need an additional “processed_at” column. These processes will also need error handling and retry logic for when communication with the outbox table fails, ensuring ‘at-least-once’ delivery. However, this approach can be resource-intensive and add additional load to the database. It can also be difficult to determine the correct polling interval, particularly in high throughput data systems where near-real time information is important [^9]. Perhaps most importantly, this approach can lead to data inconsistency due to missed messages or the inability to guarantee message ordering. If multiple transactions occur in parallel, entry into the outbox table may not be in the same order as the commits [^10].
 
 As we will explore in the following section, a simpler, more efficient, and intuitive approach is the implementation of this pattern via log-based Change Data Capture.
 
@@ -108,7 +108,7 @@ The time-based CDC approach requires adding a modification timestamp column (e.g
   <figcaption>Figure 7: Time-Based CDC</figcaption>
 </figure>
 
-While somewhat straightforward to implement, time-based CDC comes with several disadvantages[^11]:
+While somewhat straightforward to implement, time-based CDC comes with several disadvantages [^11]:
 - **Schema modification**: It may be common for a table to have an updated_at timestamp column, but those that do not must be altered, which is not always possible.
 - **Deletion detection**: This approach is unable to detect hard delete operations. Instead of deleting rows, soft deletes can be implemented by adding a deletion indicator column (e.g. “deleted_at”), but this again requires schema modification and can also lead to table bloat.
 - **Higher latency**: Capturing data at intervals may mean the process is no longer occurring in real-time.
@@ -121,7 +121,7 @@ The trigger-based CDC approach shares similarities with the polling implementati
   <figcaption>Figure 8: Trigger-Based CDC</figcaption>
 </figure>
 
-While triggers are supported by most databases, this method also comes with several disadvantages, especially as a database grows larger[^12]:
+While triggers are supported by most databases, this method also comes with several disadvantages, especially as a database grows larger [^12]:
 - **Performance degradation**: Multiple writes are required for each operation. This can slow down high-frequency transactions, especially if there are a high amount of triggers.
 - **Higher latency**: This approach can lead to higher latency due to the need for consistent querying of the shadow table.
 - **Scalability**: A large amount of triggers can become difficult to manage.
@@ -138,7 +138,7 @@ For applications that need to access data in near-real time, Log-based CDC is th
   <figcaption>Figure 9: Log-Based CDC</figcaption>
 </figure>
 
-Some of the advantages of log-based CDC include[^13]:
+Some of the advantages of log-based CDC include [^13]:
 - **Guaranteed in-order delivery**: Because log-based CDC relies solely on the log for tracking changes, these changes are received in the same order that they occurred, ensuring data consistency.
 - **Minimal database performance impact**: Changes are read from transaction logs instead of the direct database querying methods employed by other methods.
 - **Real-time message propagation**: Unlike with polling and querying approaches, capturing changes directly from the log allows for near real-time data transfer with minimal delays.
